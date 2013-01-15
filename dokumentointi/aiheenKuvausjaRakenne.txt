@@ -1,0 +1,5 @@
+Aihe: Luolastoryömintä
+Aiheena kevyt roguelike-tyyppinen peli, jossa pelaajan on tarkoitus selviytyä
+ulos hirviöidentäyteisestä luolastosta. Peli on vuoropohjainen ja hirviöiden
+kanssa tappeleminen perustuu satunnaislukujen heittelyyn. Pelitilanne on 
+mahdollista tallentaa myöhemmin pelaamista varten.
