@@ -1,2 +1,5 @@
-Ti 15.1. 2013:
+﻿Ti 15.1. 2013:
 12-14: github-repon tekeminen, gitin käytön opettelu yms. alustavat työt
+
+Ke 16.1. 2013:
+11-13: Luokkakaavion suunnitteleminen, ohjelmoinnin aloittaminen (kartan alustus ja alustava piirtäminen)

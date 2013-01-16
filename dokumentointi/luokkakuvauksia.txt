@@ -1,0 +1,11 @@
+Main:
+-initialisoi pelin
+
+Peli:
+-pyörittää peliä
+
+Kartta:
+-pitää sisällään listan ruuduista
+
+Ruutu:
+-sisältää tiedon siitä, mitä kys. pelialue sisältää (tyhjää, seinää, pelaajan, hirviön, uloskäynnin)
