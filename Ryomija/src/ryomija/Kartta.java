@@ -32,7 +32,7 @@ public class Kartta {
         return this.korkeus;
     }
     
-    public Ruutu etsiRuutu(int y, int x) {
+    public Ruutu etsiRuutu(int x, int y) {
         Object rivi = this.kartta.get(y);
         List verrattavaRivi = new ArrayList<Ruutu>();
         
@@ -51,14 +51,5 @@ public class Kartta {
         
         Ruutu oikeaRuutu = (Ruutu) ruutu;
         return oikeaRuutu;
-    }
-    
-    public char ruudunSisalto(int y, int x) {
-        Ruutu ruutu = etsiRuutu(y, x);
-        //lisää tähän virheenkäsittelyä (jos ruutu on null tms)
-        if (ruutu.onkoSeina()) {
-            return '#';
-        }
-        return '.';
     }
 }
