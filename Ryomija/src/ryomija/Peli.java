@@ -33,14 +33,20 @@ public class Peli {
         }
     }
     
-    public void liikutaHahmoa(int dX, int dY) {
+    public void liikutaHahmoa(int dX, int dY, Olento olento) {
         // hahmo ei saa liikkua yli ruudun + jonkinlainen virheilmoitus kun ei voi liikkua + mita kay kun tormaa hirvioon
-        if (!this.kartta.etsiRuutu(this.pelaaja.getX() + dX, this.pelaaja.getY() + dY).onkoSeina() 
-            && this.kartta.etsiRuutu(this.pelaaja.getX() + dX, this.pelaaja.getY() + dY).getOlento() == null) {
-            this.kartta.etsiRuutu(this.pelaaja.getX() + dX, this.pelaaja.getY() + dY).asetaOlento(this.pelaaja);
-            this.kartta.etsiRuutu(this.pelaaja.getX(), this.pelaaja.getY()).asetaOlento(null);
-            this.pelaaja.liikuta(dX, dY);
+        if (ruutuTyhja(this.kartta.etsiRuutu(olento.getX() + dX, olento.getY() + dY))) {
+            this.kartta.etsiRuutu(olento.getX() + dX, olento.getY() + dY).asetaOlento(olento);
+            this.kartta.etsiRuutu(olento.getX(), olento.getY()).asetaOlento(null);
+            olento.liikuta(dX, dY);
         }
+    }
+    
+    public boolean ruutuTyhja(Ruutu ruutu) {
+        if (!ruutu.onkoSeina() && ruutu.getOlento() == null) {
+            return true;
+        }
+        return false;
     }
     
     public void testikierros() {
@@ -48,13 +54,13 @@ public class Peli {
         alkuRuutu.asetaOlento(this.pelaaja);
         this.kartta.etsiRuutu(this.pelaaja.getX() + 1, this.pelaaja.getY()).muutaSeinaksi(true);
         piirraKartta();
-        liikutaHahmoa(0, 1);
+        liikutaHahmoa(0, 1, this.pelaaja);
         piirraKartta();
-        liikutaHahmoa(0, -1);
+        liikutaHahmoa(0, -1, this.pelaaja);
         piirraKartta();
-        liikutaHahmoa(1, 0);
+        liikutaHahmoa(1, 0, this.pelaaja);
         piirraKartta();
-        liikutaHahmoa(-1, 0);
+        liikutaHahmoa(-1, 0, this.pelaaja);
         piirraKartta();
     }
 }
