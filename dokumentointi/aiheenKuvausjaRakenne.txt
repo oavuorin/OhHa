@@ -1,11 +1,10 @@
 ﻿Aihe: Luolastoryömintä
-Aiheena kevyt roguelike-tyyppinen peli, jossa pelaajan on tarkoitus selviytyä
-ulos hirviöidentäyteisestä luolastosta. Peli on vuoropohjainen ja hirviöiden
-kanssa tappeleminen perustuu satunnaislukujen heittelyyn. "Pelilauta" koostuu
-ruuduista, joiden sisältönä on (alustavasti) joko pelaajahahmo, hirviö, seinä
-tai tyhjää.
+Aiheena kevyt roguelike-tyyppinen peli, jossa pelaajan on tarkoitus selviytyä ulos hirviöidentäyteisestä luolastosta. Peli on vuoropohjainen ja hirviöiden kanssa tappeleminen perustuu satunnaislukujen heittelyyn. "Pelilauta" koostuu ruuduista, joiden sisältönä on (alustavasti) joko pelaajahahmo, hirviö, seinä tai tyhjää.
 
-Alustavasti pelin toiminnallisuudeksi tulee pelaajahahmon liikuttelu ja hirviöihin
-hyökkääminen, minkä seurauksena tekoäly sitten tekee hirviöillä vastatoimia. Muita
-toimintoja ovat pelistä poistuminen, sen tallentaminen ja lataaminen. Lisätoimin-
-nallisuuksia voi miettiä myöhemmin.
+Alustavasti pelin toiminnallisuudeksi tulee pelaajahahmon liikuttelu ja hirviöihin hyökkääminen, minkä seurauksena tekoäly sitten tekee hirviöillä vastatoimia. Lisätoiminnallisuuksia voi miettiä myöhemmin.
+
+To do:
+Pelaajan liikuttelu näppäimistöllä
+Tekoälyn toimet
+
+

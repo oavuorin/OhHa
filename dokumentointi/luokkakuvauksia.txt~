@@ -2,7 +2,7 @@ Main:
 -initialisoi pelin
 
 Peli:
--pyörittää pelin logiikkaa, printtailee tavarat ruudulle
+-pyörittää pelin logiikkaa
 
 Kartta:
 -pitää sisällään listan ruuduista, ns. "pelilauta"
