@@ -1,5 +1,11 @@
 package ryomija;
 
+import karttaelementit.Kartta;
+import karttaelementit.Ruutu;
+import karttaelementit.Pelaaja;
+import karttaelementit.Hirvio;
+import karttaelementit.Olento;
+
 public class Peli {
     private Kartta kartta;
     private Pelaaja pelaaja;

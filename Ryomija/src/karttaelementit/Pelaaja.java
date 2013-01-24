@@ -1,5 +1,4 @@
-
-package ryomija;
+package karttaelementit;
 
 
 public class Pelaaja extends Olento {

@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import ryomija.Olento;
+import karttaelementit.Olento;
 
 public class OlentoTest {
     

@@ -1,4 +1,4 @@
-package ryomija;
+package karttaelementit;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -33,6 +33,7 @@ public class Kartta {
     }
     
     public Ruutu etsiRuutu(int x, int y) {
+        //jokin fiksumpi tapa ruudun hakemiseen?
         Object rivi = this.kartta.get(y);
         List verrattavaRivi = new ArrayList<Ruutu>();
         

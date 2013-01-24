@@ -1,5 +1,6 @@
-package ryomija;
+package karttaelementit;
 
+// yliluokka jolle pohjautuu sekä pelaaja että hirviot
 
 public class Olento {
     private int x;

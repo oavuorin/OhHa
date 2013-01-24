@@ -1,4 +1,4 @@
-package ryomija;
+package karttaelementit;
 
 public class Ruutu {
     boolean seina;
