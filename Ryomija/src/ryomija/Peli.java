@@ -27,6 +27,14 @@ public class Peli {
         this.kartta.etsiRuutu(this.pelaaja.getX(), this.pelaaja.getY()).asetaOlento(this.pelaaja);
     }
     
+    public void peliKierros() {
+        while (true) {
+            piirraKartta();
+            String komento = lukija.nextLine();
+            otaKomento(komento);
+        }
+    }
+    
     public void piirraKartta() {
         for (int y = 0; y < this.kartta.getKorkeus(); y++) {
             for (int x = 0; x < this.kartta.getLeveys(); x++) {
@@ -36,14 +44,6 @@ public class Peli {
             System.out.println();
         }
         System.out.println();
-    }
-    
-    public void peliKierros() {
-        while (true) {
-            piirraKartta();
-            String komento = lukija.nextLine();
-            otaKomento(komento);
-        }
     }
     
     public void otaKomento(String komento) {
@@ -105,36 +105,4 @@ public class Peli {
             System.out.println("Et osunut!");
         }
     }
-    
-//    public void testikavely() {
-//        Ruutu alkuRuutu = this.kartta.etsiRuutu(this.pelaaja.getX(), this.pelaaja.getY());
-//        alkuRuutu.asetaOlento(this.pelaaja);
-//        this.kartta.etsiRuutu(this.pelaaja.getX() + 1, this.pelaaja.getY()).muutaSeinaksi(true);
-//        Hirvio orkki = new Hirvio(3, 4, 'o', new Stats(10, 3));
-//        this.kartta.etsiRuutu(3, 4).asetaOlento(orkki);
-//        piirraKartta();
-//        liikutaHahmoa(0, 1, this.pelaaja);
-//        piirraKartta();
-//        liikutaHahmoa(0, 1, this.pelaaja);
-//        piirraKartta();
-//        liikutaHahmoa(0, 1, this.pelaaja);
-//        piirraKartta();
-//        liikutaHahmoa(0, 1, this.pelaaja);
-//        piirraKartta();
-//        liikutaHahmoa(0, 1, this.pelaaja);
-//        piirraKartta();
-//        liikutaHahmoa(0, 1, this.pelaaja);
-//        piirraKartta();
-//        liikutaHahmoa(0, 1, this.pelaaja);
-//        piirraKartta();
-//        liikutaHahmoa(0, 1, this.pelaaja);
-//        piirraKartta();
-//    }
-//    
-//    public void testitappelu() {
-//        Hirvio orkki = new Hirvio(3, 3, 'o', new Stats(10, 3));
-//        lyo(this.pelaaja, orkki);
-//        lyo(this.pelaaja, orkki);
-//        lyo(this.pelaaja, orkki);
-//    }
 }

@@ -34,6 +34,7 @@ public class Kartta {
     
     public Ruutu etsiRuutu(int x, int y) {
         //jokin fiksumpi tapa ruudun hakemiseen?
+        //enta jos etsitaan ruutua kartan ulkopuolelta (jota ei siis ole)?
         Object rivi = this.kartta.get(y);
         List verrattavaRivi = new ArrayList<Ruutu>();
         
