@@ -2,25 +2,29 @@ package ryomija;
 
 import karttaelementit.*;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Peli {
     private Kartta kartta;
     private Pelaaja pelaaja;
     private Random noppa;
+    private Scanner lukija;
     
     public Peli() {
         this.noppa = new Random();
+        this.lukija = new Scanner(System.in);
     }
     
     public void aloita() {
         System.out.println("Seikkailu alkaa!");
         alustaPeli();
-        testikavely();
+        peliKierros();
     }
     
     public void alustaPeli() {
         this.kartta = new Kartta(10, 10);
         this.pelaaja = new Pelaaja(3, 3, '@', new Stats(10, 4));
+        this.kartta.etsiRuutu(this.pelaaja.getX(), this.pelaaja.getY()).asetaOlento(this.pelaaja);
     }
     
     public void piirraKartta() {
@@ -37,17 +41,33 @@ public class Peli {
     public void peliKierros() {
         while (true) {
             piirraKartta();
-            //otaKomento();
+            String komento = lukija.nextLine();
+            otaKomento(komento);
+        }
+    }
+    
+    public void otaKomento(String komento) {
+        if (komento.equals("w")) {
+            liikutaHahmoa(0, -1, this.pelaaja);
+        }
+        else if (komento.equals("s")) {
+            liikutaHahmoa(0, 1, this.pelaaja);
+        }
+        else if (komento.equals("a")) {
+            liikutaHahmoa(-1, 0, this.pelaaja);
+        }
+        else if (komento.equals("d")) {
+            liikutaHahmoa(1, 0, this.pelaaja);
         }
     }
     
     //jakamista toisiin metodeihin
     public void liikutaHahmoa(int dX, int dY, Olento olento) {
-        if (olento.getX() + dX < 0 || olento.getX() + dX > this.kartta.getLeveys() ||
-            olento.getY() + dY < 0 || olento.getY() + dY > this.kartta.getKorkeus()) {
+        if (olento.getX() + dX < 0 || olento.getX() + dX > this.kartta.getLeveys() - 1 ||
+            olento.getY() + dY < 0 || olento.getY() + dY > this.kartta.getKorkeus() - 1) {
             return;
         }
-        // hahmo ei saa liikkua yli ruudun + jonkinlainen virheilmoitus kun ei voi liikkua + mita kay kun tormaa hirvioon
+        // jonkinlainen virheilmoitus kun ei voi liikkua
         if (this.kartta.etsiRuutu(olento.getX() + dX, olento.getY() + dY).getOlento() != null) {
             Olento vihollinen = this.kartta.etsiRuutu(olento.getX() + dX, olento.getY() + dY).getOlento();
             lyo(olento, vihollinen);
@@ -86,35 +106,35 @@ public class Peli {
         }
     }
     
-    public void testikavely() {
-        Ruutu alkuRuutu = this.kartta.etsiRuutu(this.pelaaja.getX(), this.pelaaja.getY());
-        alkuRuutu.asetaOlento(this.pelaaja);
-        this.kartta.etsiRuutu(this.pelaaja.getX() + 1, this.pelaaja.getY()).muutaSeinaksi(true);
-        Hirvio orkki = new Hirvio(3, 4, 'o', new Stats(10, 3));
-        this.kartta.etsiRuutu(3, 4).asetaOlento(orkki);
-        piirraKartta();
-        liikutaHahmoa(0, 1, this.pelaaja);
-        piirraKartta();
-        liikutaHahmoa(0, 1, this.pelaaja);
-        piirraKartta();
-        liikutaHahmoa(0, 1, this.pelaaja);
-        piirraKartta();
-        liikutaHahmoa(0, 1, this.pelaaja);
-        piirraKartta();
-        liikutaHahmoa(0, 1, this.pelaaja);
-        piirraKartta();
-        liikutaHahmoa(0, 1, this.pelaaja);
-        piirraKartta();
-        liikutaHahmoa(0, 1, this.pelaaja);
-        piirraKartta();
-        liikutaHahmoa(0, 1, this.pelaaja);
-        piirraKartta();
-    }
-    
-    public void testitappelu() {
-        Hirvio orkki = new Hirvio(3, 3, 'o', new Stats(10, 3));
-        lyo(this.pelaaja, orkki);
-        lyo(this.pelaaja, orkki);
-        lyo(this.pelaaja, orkki);
-    }
+//    public void testikavely() {
+//        Ruutu alkuRuutu = this.kartta.etsiRuutu(this.pelaaja.getX(), this.pelaaja.getY());
+//        alkuRuutu.asetaOlento(this.pelaaja);
+//        this.kartta.etsiRuutu(this.pelaaja.getX() + 1, this.pelaaja.getY()).muutaSeinaksi(true);
+//        Hirvio orkki = new Hirvio(3, 4, 'o', new Stats(10, 3));
+//        this.kartta.etsiRuutu(3, 4).asetaOlento(orkki);
+//        piirraKartta();
+//        liikutaHahmoa(0, 1, this.pelaaja);
+//        piirraKartta();
+//        liikutaHahmoa(0, 1, this.pelaaja);
+//        piirraKartta();
+//        liikutaHahmoa(0, 1, this.pelaaja);
+//        piirraKartta();
+//        liikutaHahmoa(0, 1, this.pelaaja);
+//        piirraKartta();
+//        liikutaHahmoa(0, 1, this.pelaaja);
+//        piirraKartta();
+//        liikutaHahmoa(0, 1, this.pelaaja);
+//        piirraKartta();
+//        liikutaHahmoa(0, 1, this.pelaaja);
+//        piirraKartta();
+//        liikutaHahmoa(0, 1, this.pelaaja);
+//        piirraKartta();
+//    }
+//    
+//    public void testitappelu() {
+//        Hirvio orkki = new Hirvio(3, 3, 'o', new Stats(10, 3));
+//        lyo(this.pelaaja, orkki);
+//        lyo(this.pelaaja, orkki);
+//        lyo(this.pelaaja, orkki);
+//    }
 }
