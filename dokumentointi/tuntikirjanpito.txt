@@ -12,3 +12,9 @@ Ti 22.1.:
 
 To 24.1.:
 13.30- : taistelumekaniikka, olentojen statsit
+
+Ma 28.1.:
+Pelikierroksen ja liikuttelun edistämistä
+
+Ti 29.1.:
+Testien kirjoittamista, pelikierroksen edistämistä
