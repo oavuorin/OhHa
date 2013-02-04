@@ -3,16 +3,31 @@ package ryomija;
 import karttaelementit.*;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
+//Kayttoliittymametodit yms. ovat taalla vain testaamista varten ja lopulta korvataan graafisilla versioilla.
 public class Peli {
     private Kartta kartta;
     private Pelaaja pelaaja;
     private Random noppa;
     private Scanner lukija;
+    private ArrayList<Hirvio> hirviot;
+    private ArrayList<Olento> tuhottavat;
     
     public Peli() {
         this.noppa = new Random();
         this.lukija = new Scanner(System.in);
+        this.hirviot = new ArrayList<Hirvio>();
+        this.tuhottavat = new ArrayList<Olento>();
+    }
+    
+    public Kartta getKartta() {
+        return this.kartta;
+    }
+    
+    public Pelaaja getPelaaja() {
+        return this.pelaaja;
     }
     
     public void aloita() {
@@ -25,6 +40,9 @@ public class Peli {
         this.kartta = new Kartta(10, 10);
         this.pelaaja = new Pelaaja(3, 3, '@', new Stats(10, 4));
         this.kartta.etsiRuutu(this.pelaaja.getX(), this.pelaaja.getY()).asetaOlento(this.pelaaja);
+        Hirvio orkki = new Hirvio(9, 9, 'o', new Stats(5, 2));
+        this.kartta.etsiRuutu(orkki.getX(), orkki.getY()).asetaOlento(orkki);
+        hirviot.add(orkki);
     }
     
     public void peliKierros() {
@@ -32,6 +50,8 @@ public class Peli {
             piirraKartta();
             String komento = lukija.nextLine();
             otaKomento(komento);
+            tuhoaHirviot();
+            liikutaHirviot();
         }
     }
     
@@ -39,11 +59,32 @@ public class Peli {
         for (int y = 0; y < this.kartta.getKorkeus(); y++) {
             for (int x = 0; x < this.kartta.getLeveys(); x++) {
                 Ruutu naytettavaRuutu = this.kartta.etsiRuutu(x, y);
-                System.out.print(naytettavaRuutu.naytaSisalto());
+                //if (nakokentassa(x, y)) {
+                    System.out.print(naytettavaRuutu.naytaSisalto());
+                //}
+                //else {
+                //    System.out.print("~");
+                //}
             }
             System.out.println();
         }
+        System.out.println("HP: " + this.pelaaja.getKyvyt().getHP());
         System.out.println();
+    }
+    
+    public boolean nakokentassa(int x, int y) {
+        int dx = x - this.pelaaja.getX();
+        int dy = y - this.pelaaja.getY();
+        if (dx < 0) {
+            dx *= -1;
+        }
+        if (dy < 0) {
+            dy *= -1;
+        }
+        if (dx + dy > 3) {
+            return false;
+        }
+        return true;
     }
     
     public void otaKomento(String komento) {
@@ -71,9 +112,6 @@ public class Peli {
         if (this.kartta.etsiRuutu(olento.getX() + dX, olento.getY() + dY).getOlento() != null) {
             Olento vihollinen = this.kartta.etsiRuutu(olento.getX() + dX, olento.getY() + dY).getOlento();
             lyo(olento, vihollinen);
-            if (vihollinen.getKyvyt().getHP() <= 0) {
-                this.kartta.etsiRuutu(olento.getX() + dX, olento.getY() + dY).asetaOlento(null);
-            }
         }
         //ylipaatansa ois kiva jos otuksen liikuttaminen hoitus vahan napparammin (ei tarttis saataa noiden asetaolento- ja liikuta-hommeleiden kaa)
         if (ruutuTyhja(this.kartta.etsiRuutu(olento.getX() + dX, olento.getY() + dY))) {
@@ -92,17 +130,67 @@ public class Peli {
     
     public void lyo(Olento hyokkaaja, Olento puolustaja) {
         if (noppa.nextInt(9) < hyokkaaja.getKyvyt().getVoima()) {
-            System.out.println("Osuit!");
-            puolustaja.getKyvyt().muutaHP(-3);
-            if (puolustaja.getKyvyt().getHP() > 0) {
-                System.out.println("Vihulla " + puolustaja.getKyvyt().getHP() + " hiparia jaljella");
+            osuma(puolustaja);
+        }
+        else {
+            if (hyokkaaja instanceof Pelaaja) {
+                System.out.print("Et osunut! ");
             }
             else {
-                System.out.println("Vihollinen kuoli!");
+                System.out.print("Vihollinen löi hudin!");
+            }
+        }
+        System.out.println();
+    }
+    
+    public void osuma(Olento olento) {
+        olento.getKyvyt().muutaHP(-3);
+        if (olento.getKyvyt().getHP() > 0) {
+            if (olento instanceof Hirvio) {
+                System.out.print("Osuit! ");
+                System.out.print("Vihulla " + olento.getKyvyt().getHP() + " hiparia jaljella. ");
+            }
+            else {
+                System.out.print("Vihu osuu sinuun! Sinulla on " + olento.getKyvyt().getHP() + " hiparia jaljella. ");
             }
         }
         else {
-            System.out.println("Et osunut!");
+            tappo(olento);
         }
+    }
+    
+    public void tappo(Olento olento) {
+        if (olento instanceof Hirvio) {
+            System.out.print("Vihollinen kuoli!");
+            this.kartta.etsiRuutu(olento.getX(), olento.getY()).asetaOlento(null);
+            this.tuhottavat.add(olento);
+        }
+        else if (olento instanceof Pelaaja) {
+            //havio();
+        }
+    }
+    
+    public void liikutaHirviot() {
+        for (Hirvio hirvio : this.hirviot) {
+            if (nakokentassa(hirvio.getX(), hirvio.getY())) {
+                if (hirvio.getX() < this.pelaaja.getX()) {
+                    liikutaHahmoa(1, 0, hirvio);
+                }
+                else if (hirvio.getX() > this.pelaaja.getX()) {
+                    liikutaHahmoa(-1, 0, hirvio);
+                }
+                else if (hirvio.getY() < this.pelaaja.getY()) {
+                    liikutaHahmoa(0, 1, hirvio);
+                }
+                else if (hirvio.getY() > this.pelaaja.getY()) {
+                    liikutaHahmoa(0, -1, hirvio);
+                }
+            }
+        }
+    }
+    
+    public void tuhoaHirviot() {
+        this.hirviot.removeAll(this.tuhottavat);
+        tuhottavat.clear();
     }
 }

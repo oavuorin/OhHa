@@ -2,10 +2,12 @@ package karttaelementit;
 
 public class Ruutu {
     boolean seina;
+    boolean nahty;
     Olento olento;
     
     public Ruutu(boolean seina) {
         this.seina = seina;
+        this.nahty = false;
     }
     
     public boolean onkoSeina() {
