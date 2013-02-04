@@ -12,14 +12,16 @@ public class Peli {
     private Pelaaja pelaaja;
     private Random noppa;
     private Scanner lukija;
+    private Odotusaika odotus;
     private ArrayList<Hirvio> hirviot;
-    private ArrayList<Olento> tuhottavat;
+    private ArrayList<Hirvio> tuhottavat;
     
     public Peli() {
         this.noppa = new Random();
         this.lukija = new Scanner(System.in);
+        this.odotus = new Odotusaika();
         this.hirviot = new ArrayList<Hirvio>();
-        this.tuhottavat = new ArrayList<Olento>();
+        this.tuhottavat = new ArrayList<Hirvio>();
     }
     
     public Kartta getKartta() {
@@ -38,11 +40,25 @@ public class Peli {
     
     public void alustaPeli() {
         this.kartta = new Kartta(10, 10);
-        this.pelaaja = new Pelaaja(3, 3, '@', new Stats(10, 4));
+        lisaaSeinat();
+        this.pelaaja = new Pelaaja(1, 1, '@', new Stats(10, 4));
         this.kartta.etsiRuutu(this.pelaaja.getX(), this.pelaaja.getY()).asetaOlento(this.pelaaja);
-        Hirvio orkki = new Hirvio(9, 9, 'o', new Stats(5, 2));
+        Hirvio orkki = new Hirvio(4, 1, 'o', new Stats(5, 2), 5);
         this.kartta.etsiRuutu(orkki.getX(), orkki.getY()).asetaOlento(orkki);
         hirviot.add(orkki);
+    }
+    
+    public void lisaaSeinat() {
+        for (int y = 0; y < this.kartta.getLeveys(); y++) {
+            for (int x = 0; x < this.kartta.getKorkeus(); x++) {
+                if (x == 0 || y == 0 || x == this.kartta.getLeveys() - 1 || y == this.kartta.getKorkeus() - 1) {
+                    this.kartta.etsiRuutu(x, y).muutaSeinaksi(true);
+                }
+                if (x == 2 && y != 8) {
+                    this.kartta.etsiRuutu(x, y).muutaSeinaksi(true);
+                }
+            }
+        }
     }
     
     public void peliKierros() {
@@ -68,8 +84,7 @@ public class Peli {
             }
             System.out.println();
         }
-        System.out.println("HP: " + this.pelaaja.getKyvyt().getHP());
-        System.out.println();
+        System.out.println("HP: " + this.pelaaja.getKyvyt().getHP() + " Voima: " + this.pelaaja.getKyvyt().getVoima() + " Exp: " + this.pelaaja.getKokemus());
     }
     
     public boolean nakokentassa(int x, int y) {
@@ -100,6 +115,11 @@ public class Peli {
         else if (komento.equals("d")) {
             liikutaHahmoa(1, 0, this.pelaaja);
         }
+        else if (komento.equals(".")) {
+            if (this.odotus.lepaa()) {
+                this.pelaaja.getKyvyt().muutaHP(1);
+            }
+        }
     }
     
     //jakamista toisiin metodeihin
@@ -129,16 +149,14 @@ public class Peli {
     }
     
     public void lyo(Olento hyokkaaja, Olento puolustaja) {
+        if (hyokkaaja instanceof Hirvio && puolustaja instanceof Hirvio) {
+            return;
+        }
         if (noppa.nextInt(9) < hyokkaaja.getKyvyt().getVoima()) {
             osuma(puolustaja);
         }
         else {
-            if (hyokkaaja instanceof Pelaaja) {
-                System.out.print("Et osunut! ");
-            }
-            else {
-                System.out.print("Vihollinen löi hudin!");
-            }
+            huti(puolustaja);
         }
         System.out.println();
     }
@@ -159,11 +177,22 @@ public class Peli {
         }
     }
     
+    public void huti(Olento olento) {
+        if (olento instanceof Pelaaja) {
+            System.out.print("Vihollinen löi hudin! ");
+        }
+        else {
+            System.out.print("Et osunut! ");
+        }
+    }
+    
     public void tappo(Olento olento) {
         if (olento instanceof Hirvio) {
             System.out.print("Vihollinen kuoli!");
-            this.kartta.etsiRuutu(olento.getX(), olento.getY()).asetaOlento(null);
-            this.tuhottavat.add(olento);
+            Hirvio monseri = (Hirvio)olento;
+            this.pelaaja.lisaaKokemusta(monseri.getExp());
+            this.kartta.etsiRuutu(monseri.getX(), monseri.getY()).asetaOlento(null);
+            this.tuhottavat.add(monseri);
         }
         else if (olento instanceof Pelaaja) {
             //havio();

@@ -3,10 +3,12 @@ package ryomija;
 //luokka pitaa sisallaan olennon numeeriset ominaisuudet
 public class Stats {
     int HP;
+    int maxHP;
     int voima;
     
     public Stats(int HP, int voima) {
         this.HP = HP;
+        this.maxHP = HP;
         this.voima = voima;
     }
     
@@ -20,5 +22,8 @@ public class Stats {
     
     public void muutaHP(int muutos) {
         this.HP += muutos;
+        if (this.HP > this.maxHP) {
+            this.HP = this.maxHP;
+        }
     }
 }
