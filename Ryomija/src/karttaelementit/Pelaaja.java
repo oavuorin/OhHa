@@ -2,7 +2,11 @@ package karttaelementit;
 
 import ryomija.Stats;
 
-
+/**
+ * Pelaaja on pelaajan ohjaama hahmo pelissä.
+ * 
+ * @author Otto Vuorinen
+ */
 public class Pelaaja extends Olento {
     private int kokemus;
     

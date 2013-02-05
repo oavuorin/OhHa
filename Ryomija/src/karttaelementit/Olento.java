@@ -1,6 +1,10 @@
 package karttaelementit;
 
-// yliluokka jolle pohjautuu sekä pelaaja että hirviot (mahdollisesti myohemmin myos esim. esineet ja muut luolastosta loydettavat kamat
+/**
+ * luokka jolle pohjautuu sekä pelaaja että hirviot (mahdollisesti myohemmin myos esim. esineet ja muut luolastosta loydettavat kamat)
+ * 
+ * @author Otto Vuorinen
+ */
 
 import ryomija.Stats;
 

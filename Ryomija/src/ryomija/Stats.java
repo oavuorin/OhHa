@@ -1,6 +1,10 @@
 package ryomija;
 
-//luokka pitaa sisallaan olennon numeeriset ominaisuudet
+/**
+ * Stats-luokka pitää sisällään olentojen numeeriset arvot.
+ * 
+ * @author Otto Vuorinen
+ */
 public class Stats {
     int HP;
     int maxHP;

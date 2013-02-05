@@ -1,5 +1,10 @@
 package karttaelementit;
 
+/**
+ * Pelialue koostuu ruuduista, jotka voivat pitää sisällään tyhjää tilaa, seinän tai olennon.
+ * 
+ * @author Otto Vuorinen
+ */
 public class Ruutu {
     boolean seina;
     boolean nahty;

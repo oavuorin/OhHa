@@ -1,15 +1,31 @@
 package ryomija;
 
+/**
+ * Odotusaika-luokkaa käytetään pelaajahahmon lepoajan mittaamiseen
+ * 
+ * @author Otto Vuorinen
+ */
 public class Odotusaika {
     private int vuorojaOdotettu;
+    private int raja;
     
     public Odotusaika() {
+        this.raja = 5;
         this.vuorojaOdotettu = 0;
     }
     
-    public boolean lepaa() {
+    public Odotusaika(int raja) {
+        this.raja = raja;
+        this.vuorojaOdotettu = 0;
+    }
+    
+    /**
+     * Metodi palauttaa true kun vuoroja on odotettu tarpeeksi ja nollautuu tämän jälkeen.
+     * 
+     */
+    public boolean odota() {
         this.vuorojaOdotettu++;
-        if (this.vuorojaOdotettu >= 5) {
+        if (this.vuorojaOdotettu >= raja) {
             this.vuorojaOdotettu = 0;
             return true;
         }

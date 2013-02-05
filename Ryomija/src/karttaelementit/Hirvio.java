@@ -2,6 +2,11 @@ package karttaelementit;
 
 import ryomija.Stats;
 
+/**
+ * Hirvio-luokalla luodaan tietokoneen ohjastamat pelihahmot
+ * 
+ * @author ghaas
+ */
 public class Hirvio extends Olento {
     
     private int exp;

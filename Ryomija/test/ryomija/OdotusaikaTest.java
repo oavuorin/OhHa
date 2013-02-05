@@ -26,17 +26,17 @@ public class OdotusaikaTest {
     
     @Test
     public void VahanOdottaminenPalauttaaFalse() {
-        odottaja.lepaa();
-        odottaja.lepaa();
-        assertEquals(false, odottaja.lepaa());
+        odottaja.odota();
+        odottaja.odota();
+        assertEquals(false, odottaja.odota());
     }
     
     @Test
     public void TarpeeksiOdottaminenPalauttaaTrue() {
-        odottaja.lepaa();
-        odottaja.lepaa();
-        odottaja.lepaa();
-        odottaja.lepaa();
-        assertEquals(true, odottaja.lepaa());
+        odottaja.odota();
+        odottaja.odota();
+        odottaja.odota();
+        odottaja.odota();
+        assertEquals(true, odottaja.odota());
     }
 }

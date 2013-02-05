@@ -7,7 +7,11 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 
-//Kayttoliittymametodit yms. ovat taalla vain testaamista varten ja lopulta korvataan toisella luokalla/luokilla
+/**
+ * Peli-luokka pyörittää ja hallinnoi peliä ja sen elementtejä.
+ * 
+ * @author Otto Vuorinen
+ */
 public class Peli {
     private Kartta kartta;
     private Pelaaja pelaaja;
@@ -78,8 +82,9 @@ public class Peli {
         }
     }
     
+    
     public void peliKierros() {
-        while (this.kaynnissa = true) {
+        while (this.kaynnissa == true) {
             piirraKartta();
             tekstikayttis.otaKomento();
             tuhoaHirviot();
@@ -119,7 +124,7 @@ public class Peli {
     }
     
     public void lepaaHetki() {
-        if (this.odotus.lepaa()) {
+        if (this.odotus.odota()) {
             this.pelaaja.getKyvyt().muutaHP(1);
         }
     }

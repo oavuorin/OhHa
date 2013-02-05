@@ -5,6 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Kartta pitää sisällään ruudut, joista pelialue koostuu
+ * 
+ * @author Otto Vuorinen
+ */
 public class Kartta {
     private Map kartta;
     private int leveys;
