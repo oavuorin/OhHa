@@ -21,3 +21,6 @@ Testien kirjoittamista, pelikierroksen edistämistä
 
 Ma 4.2.:
 Sovelluslogiikan edistämistä (taistelusysteemiä, näkökenttää)
+
+Ti 5.2.:
+Javadocin aloittaminen, sekvenssikaavioiden piirtäminen, luokkine hiominen
