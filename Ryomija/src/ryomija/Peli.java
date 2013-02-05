@@ -82,7 +82,9 @@ public class Peli {
         }
     }
     
-    
+    /**
+     * Kierros toistuu kunnes peli lopetetaan, pelin pääloop
+     */
     public void peliKierros() {
         while (this.kaynnissa == true) {
             piirraKartta();
@@ -92,6 +94,9 @@ public class Peli {
         }
     }
     
+    /**
+     * Kartan ruudulle piirtävä metodi (saatetaan myöhemmin korvata graafisella vastineella)
+     */
     public void piirraKartta() {
         for (int y = 0; y < this.kartta.getKorkeus(); y++) {
             for (int x = 0; x < this.kartta.getLeveys(); x++) {
@@ -108,6 +113,12 @@ public class Peli {
         System.out.println("HP: " + this.pelaaja.getKyvyt().getHP() + " Voima: " + this.pelaaja.getKyvyt().getVoima() + " Exp: " + this.pelaaja.getKokemus());
     }
     
+    /**Metodi kertoo, voiko pelaaja nähdä koordinaateissa olevaan ruutuun.
+     * 
+     * @param x
+     * @param y
+     * @return 
+     */
     public boolean nakokentassa(int x, int y) {
         int dx = x - this.pelaaja.getX();
         int dy = y - this.pelaaja.getY();
@@ -123,34 +134,38 @@ public class Peli {
         return true;
     }
     
+    /**Pelaajahahmo lepää hetken, tarpeeksi levättyään paranee
+     * 
+     */
     public void lepaaHetki() {
         if (this.odotus.odota()) {
             this.pelaaja.getKyvyt().muutaHP(1);
         }
     }
     
+    /**Metodi liikuttaa paratmetrin olentoa kartalla parametrien suuntaan ja hyökkää jos mahdollista.
+     * 
+     * @param dX
+     * @param dY
+     * @param olento 
+     */
     public void liikutaHahmoa(int dX, int dY, Olento olento) {
-        if (kartanUlkopuolella(olento.getX() + dX, olento.getY() + dY)) {
+        int uusiX = olento.getX() + dX;
+        int uusiY = olento.getY() + dY;
+        if (this.kartta.kartanUlkopuolella(uusiX, uusiY)) {
             return;
         }
         // jonkinlainen virheilmoitus kun ei voi liikkua
-        if (ruudussaHirvio(this.kartta.etsiRuutu(olento.getX() + dX, olento.getY() + dY))) {
-            Olento vihollinen = this.kartta.etsiRuutu(olento.getX() + dX, olento.getY() + dY).getOlento();
+        if (ruudussaHirvio(this.kartta.etsiRuutu(uusiX, uusiY))) {
+            Olento vihollinen = this.kartta.etsiRuutu(uusiX, uusiY).getOlento();
             lyo(olento, vihollinen);
         }
         //ylipaatansa ois kiva jos otuksen liikuttaminen hoitus vahan napparammin (ei tarttis saataa noiden asetaolento- ja liikuta-hommeleiden kaa)
-        if (ruutuTyhja(this.kartta.etsiRuutu(olento.getX() + dX, olento.getY() + dY))) {
-            this.kartta.etsiRuutu(olento.getX() + dX, olento.getY() + dY).asetaOlento(olento);
+        if (ruutuTyhja(this.kartta.etsiRuutu(uusiX, uusiY))) {
+            this.kartta.etsiRuutu(uusiX, uusiY).asetaOlento(olento);
             this.kartta.etsiRuutu(olento.getX(), olento.getY()).asetaOlento(null);
             olento.liikuta(dX, dY);
         }
-    }
-    
-    public boolean kartanUlkopuolella(int x, int y) {
-        if (x < 0 || x > this.kartta.getLeveys() - 1 || y < 0 || y > this.kartta.getKorkeus() - 1) {
-            return true;
-        }
-        return false;
     }
     
     public boolean ruutuTyhja(Ruutu ruutu) {
@@ -218,7 +233,7 @@ public class Peli {
     }
     
     public void havio() {
-        System.out.println("Kuolit ja hävisit pelin! :(((");
+        System.out.println("Kuolit haavoihisi ja hävisit pelin! :(((");
         this.kaynnissa = false;
     }
     
@@ -241,6 +256,9 @@ public class Peli {
         }
     }
     
+    /**
+     * Metodi poistaa kuolleet hirviot posi pelistä.
+     */
     public void tuhoaHirviot() {
         this.hirviot.removeAll(this.tuhottavat);
         tuhottavat.clear();
