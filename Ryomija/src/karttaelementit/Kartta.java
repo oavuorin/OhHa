@@ -32,9 +32,18 @@ public class Kartta {
         return this.korkeus;
     }
     
+    public boolean kartanUlkopuolella(int x, int y) {
+        if (x < 0 || x > this.leveys - 1 || y < 0 || y > this.korkeus) {
+            return true;
+        }
+        return false;
+    }
+
     public Ruutu etsiRuutu(int x, int y) {
         //jokin fiksumpi tapa ruudun hakemiseen?
-        //enta jos etsitaan ruutua kartan ulkopuolelta (jota ei siis ole)?
+        if (kartanUlkopuolella(x, y)) {
+            return null;
+        }
         Object rivi = this.kartta.get(y);
         List verrattavaRivi = new ArrayList<Ruutu>();
         

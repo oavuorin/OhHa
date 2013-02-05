@@ -28,4 +28,5 @@ public class Hirvio extends Olento {
     public int getExp() {
         return this.exp;
     }
+    
 }

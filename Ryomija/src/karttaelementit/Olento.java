@@ -1,6 +1,6 @@
 package karttaelementit;
 
-// yliluokka jolle pohjautuu sekä pelaaja että hirviot
+// yliluokka jolle pohjautuu sekä pelaaja että hirviot (mahdollisesti myohemmin myos esim. esineet ja muut luolastosta loydettavat kamat
 
 import ryomija.Stats;
 
