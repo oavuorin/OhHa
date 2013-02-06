@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author Otto Vuorinen
  */
 public class Kartta {
-    private Map kartta;
+    private Map<Integer, List<Ruutu>> kartta;
     private int leveys;
     private int korkeus;
     
@@ -20,9 +20,9 @@ public class Kartta {
         this.korkeus = korkeus;
         
         this.kartta = new HashMap<Integer, List<Ruutu>>();
-        for (int y = 0; y < korkeus; y++) {
+        for (int y = 0; y < this.korkeus; y++) {
             List rivi = new ArrayList<Ruutu>();
-            for (int x = 0; x < leveys; x++) {
+            for (int x = 0; x < this.leveys; x++) {
                 rivi.add(new Ruutu(false));
             }
             this.kartta.put(y, rivi);
@@ -49,16 +49,9 @@ public class Kartta {
         if (kartanUlkopuolella(x, y)) {
             return null;
         }
-        Object rivi = this.kartta.get(y);
-        List verrattavaRivi = new ArrayList<Ruutu>();
+        List verrattavaRivi = this.kartta.get(y);
         
-        if (verrattavaRivi.getClass() != rivi.getClass()) {
-            return null;
-        }
-        
-        ArrayList oikeaRivi = (ArrayList) rivi;
-        
-        Object ruutu = oikeaRivi.get(x);
+        Object ruutu = verrattavaRivi.get(x);
         Ruutu verrattavaRuutu = new Ruutu(false);
         
         if (verrattavaRuutu.getClass() != ruutu.getClass()) {
@@ -67,5 +60,22 @@ public class Kartta {
         
         Ruutu oikeaRuutu = (Ruutu) ruutu;
         return oikeaRuutu;
+    }
+    
+    public String palautaKarttaTekstina() {
+        String tuloste = "";
+        for (int y = 0; y < this.korkeus; y++) {
+            for (int x = 0; x < this.leveys; x++) {
+                Ruutu naytettavaRuutu = this.etsiRuutu(x, y);
+                //if (nakokentassa(x, y)) {
+                    tuloste += naytettavaRuutu.naytaSisalto();
+                //}
+                //else {
+                //    System.out.print("~");
+                //}
+            }
+            tuloste += "\n";
+        }
+        return tuloste;
     }
 }

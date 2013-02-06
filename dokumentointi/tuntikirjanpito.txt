@@ -24,3 +24,6 @@ Sovelluslogiikan edistämistä (taistelusysteemiä, näkökenttää)
 
 Ti 5.2.:
 Javadocin aloittaminen, sekvenssikaavioiden piirtäminen, luokkine hiominen
+
+Ke 6.2.:
+Säätämistä kirjastojen kanssa, graafisen käyttöliittymän aloittaminen ja sen kanssa tappeleminen, lopulta siinä onnistuminen (toivon mukaan)

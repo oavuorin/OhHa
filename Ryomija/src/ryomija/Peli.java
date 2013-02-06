@@ -1,11 +1,13 @@
 package ryomija;
 
 import karttaelementit.*;
+import kayttoliittyma.GraafinenKayttoliittyma;
 import kayttoliittyma.Tekstikayttoliittyma;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
+import javax.swing.SwingUtilities;
 
 /**
  * Peli-luokka pyörittää ja hallinnoi peliä ja sen elementtejä.
@@ -20,6 +22,7 @@ public class Peli {
     private Odotusaika odotus;
     private boolean kaynnissa;
     private Tekstikayttoliittyma tekstikayttis;
+    private GraafinenKayttoliittyma graafKayttis;
     private ArrayList<Hirvio> hirviot;
     private ArrayList<Hirvio> tuhottavat;
     
@@ -48,18 +51,20 @@ public class Peli {
     public void aloita() {
         System.out.println("Seikkailu alkaa!");
         alustaPeli();
-        peliKierros();
+        SwingUtilities.invokeLater(graafKayttis);
+        //peliKierros();
     }
     
     public void alustaPeli() {
         this.kaynnissa = true;
-        this.kartta = new Kartta(10, 10);
+        this.kartta = new Kartta(15, 10);
         lisaaSeinat();
         this.pelaaja = new Pelaaja(1, 1, '@', new Stats(10, 4));
         this.kartta.etsiRuutu(this.pelaaja.getX(), this.pelaaja.getY()).asetaOlento(this.pelaaja);
         Hirvio orkki = new Hirvio(4, 1, 'o', new Stats(5, 5), 5);
         this.kartta.etsiRuutu(orkki.getX(), orkki.getY()).asetaOlento(orkki);
         hirviot.add(orkki);
+        this.graafKayttis = new GraafinenKayttoliittyma(this.kartta, this);
     }
     
     public void testiPelinAlustus() {
@@ -70,8 +75,8 @@ public class Peli {
     }
     
     public void lisaaSeinat() {
-        for (int y = 0; y < this.kartta.getLeveys(); y++) {
-            for (int x = 0; x < this.kartta.getKorkeus(); x++) {
+        for (int y = 0; y < this.kartta.getKorkeus(); y++) {
+            for (int x = 0; x < this.kartta.getLeveys(); x++) {
                 if (x == 0 || y == 0 || x == this.kartta.getLeveys() - 1 || y == this.kartta.getKorkeus() - 1) {
                     this.kartta.etsiRuutu(x, y).muutaSeinaksi(true);
                 }
@@ -166,6 +171,10 @@ public class Peli {
             this.kartta.etsiRuutu(olento.getX(), olento.getY()).asetaOlento(null);
             olento.liikuta(dX, dY);
         }
+    }
+    
+    public void liikutaPelaajaa(int dX, int dY) {
+        liikutaHahmoa(dX, dY, this.pelaaja);
     }
     
     public boolean ruutuTyhja(Ruutu ruutu) {
