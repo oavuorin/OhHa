@@ -19,29 +19,25 @@ public class Tapahtumankuuntelija implements KeyListener {
     
     @Override
     public void keyPressed(KeyEvent e) {
-        this.piirtaja.setText(this.peli.piirraKartta());
+        this.piirtaja.setText(this.peli.piirraPelitilanne());
         int keyCode = e.getKeyCode();
         switch(keyCode) {
             case KeyEvent.VK_UP:
-                this.peli.liikutaPelaajaa(0, -1);
+                this.piirtaja.setText(this.peli.peliKierros("w"));
                 break;
             case KeyEvent.VK_DOWN:
-                this.peli.liikutaPelaajaa(0, 1);
+                this.piirtaja.setText(this.peli.peliKierros("s"));
                 break;
             case KeyEvent.VK_LEFT:
-                this.peli.liikutaPelaajaa(-1, 0);
+                this.piirtaja.setText(this.peli.peliKierros("a"));
                 break;
             case KeyEvent.VK_RIGHT:
-                this.peli.liikutaPelaajaa(1, 0);
+                this.piirtaja.setText(this.peli.peliKierros("d"));
+                break;
+            case KeyEvent.VK_D:
+                this.piirtaja.setText(this.peli.peliKierros("."));
                 break;
         }
-        loppuvuoro();
-    }
-    
-    public void loppuvuoro() {
-        this.peli.tuhoaHirviot();
-        this.peli.liikutaHirviot();
-        this.piirtaja.setText(this.peli.piirraKartta());
     }
     
     @Override

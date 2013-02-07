@@ -29,7 +29,7 @@ public class GraafinenKayttoliittyma implements Runnable {
     @Override
     public void run() {
         frame = new JFrame("Tunkio");
-        frame.setPreferredSize(new Dimension(400, 600));
+        frame.setPreferredSize(new Dimension(640, 480));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
         luoKomponentit(frame.getContentPane());
@@ -39,9 +39,9 @@ public class GraafinenKayttoliittyma implements Runnable {
     }
     
     private void luoKomponentit(Container container) {
-        JTextArea karttapiirros = new JTextArea(this.peli.piirraKartta());
+        JTextArea karttapiirros = new JTextArea(this.peli.piirraPelitilanne());
         karttapiirros.setEnabled(false);
-        Font fontti = new Font("Lucida Sans Typewriter", Font.BOLD, 20);
+        Font fontti = new Font("Courier New", Font.BOLD, 20);
         karttapiirros.setFont(fontti);
         lisaaKuuntelijat(karttapiirros);
         container.add(karttapiirros);

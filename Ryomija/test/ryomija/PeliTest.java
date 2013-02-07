@@ -50,24 +50,4 @@ public class PeliTest {
         peli.liikutaHahmoa(0, 1, peli.getPelaaja());
         assertEquals(2, peli.getPelaaja().getY());
     }
-    
-    @Test
-    public void kartanYlapuolellaOlevaRuutuHuomataan() {
-        assertEquals(true, peli.kartanUlkopuolella(3, -1));
-    }
-    
-    @Test
-    public void kartanAlapuolellaOlevaRuutuHuomataan() {
-        assertEquals(true, peli.kartanUlkopuolella(3, 10));
-    }
-    
-    @Test
-    public void kartanVasemmallaPuolellaOlevaRuutuHuomataan() {
-        assertEquals(true, peli.kartanUlkopuolella(-1, 3));
-    }
-    
-    @Test
-    public void kartanOikeallaPuolellaOlevaRuutuHuomataan() {
-        assertEquals(true, peli.kartanUlkopuolella(10, 3));
-    }
 }

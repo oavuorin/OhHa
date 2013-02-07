@@ -2,9 +2,8 @@ package ryomija;
 
 import karttaelementit.*;
 import kayttoliittyma.GraafinenKayttoliittyma;
-import kayttoliittyma.Tekstikayttoliittyma;
+import kayttoliittyma.Komennonkasittelija;
 import java.util.Random;
-import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.SwingUtilities;
@@ -18,22 +17,22 @@ public class Peli {
     private Kartta kartta;
     private Pelaaja pelaaja;
     private Random noppa;
-    private Scanner lukija;
     private Odotusaika odotus;
     private boolean kaynnissa;
-    private Tekstikayttoliittyma tekstikayttis;
+    private String viestit;
+    private Komennonkasittelija tekstikayttis;
     private GraafinenKayttoliittyma graafKayttis;
     private ArrayList<Hirvio> hirviot;
     private ArrayList<Hirvio> tuhottavat;
     
     public Peli() {
         this.kaynnissa = true;
+        this.viestit = "";
         this.noppa = new Random();
-        this.lukija = new Scanner(System.in);
         this.odotus = new Odotusaika();
         this.hirviot = new ArrayList<Hirvio>();
         this.tuhottavat = new ArrayList<Hirvio>();
-        this.tekstikayttis = new Tekstikayttoliittyma(this);
+        this.tekstikayttis = new Komennonkasittelija(this);
     }
     
     public Kartta getKartta() {
@@ -48,8 +47,11 @@ public class Peli {
         return this.odotus;
     }
     
+    public void setViestit(String muutos) {
+        this.viestit = muutos;
+    }
+    
     public void aloita() {
-        System.out.println("Seikkailu alkaa!");
         alustaPeli();
         SwingUtilities.invokeLater(graafKayttis);
         //peliKierros();
@@ -88,36 +90,48 @@ public class Peli {
     }
     
     /**
-     * Kierros toistuu kunnes peli lopetetaan, pelin pääloop
+     * Tapahtuu pelaajan antaman komennon jalkeen, antaa tulosteen pelivuorosta kayttoliittymalle
      */
-    public void peliKierros() {
-        while (this.kaynnissa == true) {
-            piirraKartta();
-            tekstikayttis.otaKomento();
+    public String peliKierros(String komento) {
+        if (this.kaynnissa) { 
+            tekstikayttis.otaKomento(komento);
             tuhoaHirviot();
             liikutaHirviot();
+            String tuloste = piirraPelitilanne();
+            this.viestit = "";
+            return tuloste;
+        }
+        else {
+            this.viestit = "Kuolit haavoihisi ja hävisit pelin! Paina rastia lopettaaksesi";
+            String tuloste = piirraPelitilanne();
+            return tuloste;
         }
     }
     
     /**
-     * Kartan ruudulle piirtävä metodi (saatetaan myöhemmin korvata graafisella vastineella)
+     * Antaa tulosteen siita, mika nakyy pelaajalle.
      */
-    public String piirraKartta() {
-        String karttanakyma = "";
+    public String piirraPelitilanne() {
+        String pelinakyma = "";
         for (int y = 0; y < this.kartta.getKorkeus(); y++) {
             for (int x = 0; x < this.kartta.getLeveys(); x++) {
                 Ruutu naytettavaRuutu = this.kartta.etsiRuutu(x, y);
-                //if (nakokentassa(x, y)) {
-                    karttanakyma += naytettavaRuutu.naytaSisalto();
-                //}
-                //else {
-                //    System.out.print("~");
-                //}
+                if (nakokentassa(x, y)) {
+                    pelinakyma += naytettavaRuutu.naytaSisalto();
+                }
+                else {
+                    pelinakyma += " ";
+                }
             }
-            karttanakyma += "\n";
+            pelinakyma += "\n";
         }
-        karttanakyma += "\n";
-        return karttanakyma;
+        pelinakyma += piirraHUD() + "\n" + this.viestit;
+        return pelinakyma;
+    }
+    
+    public String piirraHUD() {
+        String tuloste = "HP: " + this.pelaaja.getKyvyt().getHP() + " Voima: " + this.pelaaja.getKyvyt().getVoima() + " Exp: " + this.pelaaja.getKokemus();
+        return tuloste;
     }
     
     /**Metodi kertoo, voiko pelaaja nähdä koordinaateissa olevaan ruutuun.
@@ -210,10 +224,10 @@ public class Peli {
         Kohde.getKyvyt().muutaHP(-3);
         if (Kohde.getKyvyt().getHP() > 0) {
             if (Kohde instanceof Hirvio) {
-                System.out.print("Osuit! Vihulla " + Kohde.getKyvyt().getHP() + " hiparia jaljella. ");
+                this.viestit += "Osuit! Vihulla " + Kohde.getKyvyt().getHP() + " hiparia jaljella. ";
             }
             else {
-                System.out.print("Vihu osuu sinuun! Sinulla on " + Kohde.getKyvyt().getHP() + " hiparia jaljella. ");
+                this.viestit += "Vihu osuu sinuun! Sinulla on " + Kohde.getKyvyt().getHP() + " hiparia jaljella. ";
             }
         }
         else {
@@ -223,16 +237,16 @@ public class Peli {
     
     public void huti(Olento Kohde) {
         if (Kohde instanceof Pelaaja) {
-            System.out.print("Vihollinen löi hudin! ");
+            this.viestit += "Vihollinen löi hudin! ";
         }
         else {
-            System.out.print("Et osunut! ");
+            this.viestit += "Et osunut! ";
         }
     }
     
     public void tappo(Olento Kohde) {
         if (Kohde instanceof Hirvio) {
-            System.out.print("Vihollinen kuoli!");
+            this.viestit += "Vihollinen kuoli!";
             Hirvio monseri = (Hirvio)Kohde;
             this.pelaaja.lisaaKokemusta(monseri.getExp());
             this.kartta.etsiRuutu(monseri.getX(), monseri.getY()).asetaOlento(null);
@@ -244,7 +258,7 @@ public class Peli {
     }
     
     public void havio() {
-        System.out.println("Kuolit haavoihisi ja hävisit pelin! :(((");
+        this.viestit += "Kuolit haavoihisi ja hävisit pelin! :((((";
         this.kaynnissa = false;
     }
     
