@@ -39,7 +39,7 @@ public class GraafinenKayttoliittyma implements Runnable {
     }
     
     private void luoKomponentit(Container container) {
-        JTextArea karttapiirros = new JTextArea();
+        JTextArea karttapiirros = new JTextArea(this.peli.piirraKartta());
         karttapiirros.setEnabled(false);
         Font fontti = new Font("Lucida Sans Typewriter", Font.BOLD, 20);
         karttapiirros.setFont(fontti);
@@ -48,7 +48,7 @@ public class GraafinenKayttoliittyma implements Runnable {
     }
     
     private void lisaaKuuntelijat(JTextArea tekstikentta) {
-        Tapahtumankuuntelija kuuntelija = new Tapahtumankuuntelija(tekstikentta, this.kartta, this.peli);
+        Tapahtumankuuntelija kuuntelija = new Tapahtumankuuntelija(tekstikentta, this.peli);
         this.frame.addKeyListener(kuuntelija);
         
     }

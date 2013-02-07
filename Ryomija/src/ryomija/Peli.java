@@ -102,20 +102,22 @@ public class Peli {
     /**
      * Kartan ruudulle piirtävä metodi (saatetaan myöhemmin korvata graafisella vastineella)
      */
-    public void piirraKartta() {
+    public String piirraKartta() {
+        String karttanakyma = "";
         for (int y = 0; y < this.kartta.getKorkeus(); y++) {
             for (int x = 0; x < this.kartta.getLeveys(); x++) {
                 Ruutu naytettavaRuutu = this.kartta.etsiRuutu(x, y);
                 //if (nakokentassa(x, y)) {
-                    System.out.print(naytettavaRuutu.naytaSisalto());
+                    karttanakyma += naytettavaRuutu.naytaSisalto();
                 //}
                 //else {
                 //    System.out.print("~");
                 //}
             }
-            System.out.println();
+            karttanakyma += "\n";
         }
-        System.out.println("HP: " + this.pelaaja.getKyvyt().getHP() + " Voima: " + this.pelaaja.getKyvyt().getVoima() + " Exp: " + this.pelaaja.getKokemus());
+        karttanakyma += "\n";
+        return karttanakyma;
     }
     
     /**Metodi kertoo, voiko pelaaja nähdä koordinaateissa olevaan ruutuun.

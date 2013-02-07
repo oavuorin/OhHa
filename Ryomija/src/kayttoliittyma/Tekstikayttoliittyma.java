@@ -5,6 +5,8 @@ import ryomija.Peli;
 
 /**Teksikayttoliittyma-luokka ottaa vastaan pelaajan komennot ja pistää ne eteenpäin Peli-luokalle.
  * 
+ * Korvattu graafisella versiolla.
+ * 
  * @author Otto Vuorinen
  */
 public class Tekstikayttoliittyma {
