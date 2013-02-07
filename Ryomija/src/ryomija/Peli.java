@@ -27,7 +27,7 @@ public class Peli {
     
     public Peli() {
         this.kaynnissa = true;
-        this.viestit = "";
+        this.viestit = "Tervetuloa peliin! Yritä selvitä hengissä. ";
         this.noppa = new Random();
         this.odotus = new Odotusaika();
         this.hirviot = new ArrayList<Hirvio>();
@@ -113,20 +113,26 @@ public class Peli {
      */
     public String piirraPelitilanne() {
         String pelinakyma = "";
+        pelinakyma += piirraKarttanakyma();
+        pelinakyma += piirraHUD() + "\n" + this.viestit;
+        return pelinakyma;
+    }
+    
+    public String piirraKarttanakyma() {
+        String karttanakyma = "";
         for (int y = 0; y < this.kartta.getKorkeus(); y++) {
             for (int x = 0; x < this.kartta.getLeveys(); x++) {
                 Ruutu naytettavaRuutu = this.kartta.etsiRuutu(x, y);
                 if (nakokentassa(x, y)) {
-                    pelinakyma += naytettavaRuutu.naytaSisalto();
+                    karttanakyma += naytettavaRuutu.naytaSisalto();
                 }
                 else {
-                    pelinakyma += " ";
+                    karttanakyma += " ";
                 }
             }
-            pelinakyma += "\n";
+            karttanakyma += "\n";
         }
-        pelinakyma += piirraHUD() + "\n" + this.viestit;
-        return pelinakyma;
+        return karttanakyma;
     }
     
     public String piirraHUD() {
