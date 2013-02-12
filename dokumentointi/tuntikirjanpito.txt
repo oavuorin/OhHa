@@ -27,3 +27,9 @@ Javadocin aloittaminen, sekvenssikaavioiden piirtäminen, luokkine hiominen
 
 Ke 6.2.:
 Säätämistä kirjastojen kanssa, graafisen käyttöliittymän aloittaminen ja sen kanssa tappeleminen, lopulta siinä onnistuminen (toivon mukaan)
+
+To 7.2.:
+Graafisen käyttöliittymän säätämistä
+
+Ti 12.2:
+Graafisen käyttöliittymän säätämistä, dokumentoinnin laajentamista ja päivittämistä, luokkien nimien viilaamista, testien kirjoittamista, 

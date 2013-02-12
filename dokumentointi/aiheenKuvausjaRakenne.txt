@@ -3,8 +3,6 @@ Aiheena kevyt roguelike-tyyppinen peli, jossa pelaajan on tarkoitus selviytyä u
 
 Alustavasti pelin toiminnallisuudeksi tulee pelaajahahmon liikuttelu ja hirviöihin hyökkääminen, minkä seurauksena tekoäly sitten tekee hirviöillä vastatoimia. Lisätoiminnallisuuksia voi miettiä myöhemmin.
 
-To do:
-Pelaajan liikuttelu näppäimistöllä
-Tekoälyn toimet
+Peliä pyörittää Peli-luokka, jolta käyttöliittymä saa String-muotoisena kuvan pelitilanteesta. Pelitilanne tulostetaan käyttöliittymään.
 
 

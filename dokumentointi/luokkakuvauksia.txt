@@ -2,7 +2,7 @@ Main:
 -initialisoi pelin
 
 Peli:
--pyörittää pelin logiikkaa, printtailee tavarat ruudulle
+-pyörittää pelin logiikkaa, vie Stringin pelitilanteesta käyttöliittymälle
 
 Kartta:
 -pitää sisällään listan ruuduista, ns. "pelilauta"
@@ -21,3 +21,12 @@ Hirvio:
 
 Stats:
 -Olennon numeeriset tiedot sisältävä luokka (tällä hetkellä sisältää olennon voima- ja hp-arvot)
+
+GraafinenKayttoliittyma:
+-Sisältää graafisen käyttöliittymän
+
+Nappaimistonkuuntelija:
+-Ottaa vastaan näppäimistösyötteet ja pistää ne eteenpäin Peli-luokalle
+
+KomentoKasittelija:
+-Käsittelee saadut komennot ja pistää niiden mukaan Peli-luokan tekemään asioita

@@ -2,7 +2,6 @@ package ryomija;
 
 import karttaelementit.*;
 import kayttoliittyma.GraafinenKayttoliittyma;
-import kayttoliittyma.Komennonkasittelija;
 import java.util.Random;
 import java.util.List;
 import java.util.ArrayList;
@@ -282,7 +281,8 @@ public class Peli {
      * @param Kohde lyötävä osapuoli
      */
     public void osuma(Olento hyokkaaja, Olento kohde) {
-        kohde.getKyvyt().muutaHP(noppa.nextInt(hyokkaaja.getKyvyt().getVoima()));
+        Random vahinko = new Random();
+        kohde.getKyvyt().muutaHP((vahinko.nextInt(hyokkaaja.getKyvyt().getVoima()) + 1)*-1);
         if (kohde.getKyvyt().getHP() > 0) {
             eiTappavaOsuma(kohde);
         }

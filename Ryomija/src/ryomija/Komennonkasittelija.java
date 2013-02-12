@@ -1,4 +1,4 @@
-package kayttoliittyma;
+package ryomija;
 
 import java.util.Scanner;
 import ryomija.Peli;
