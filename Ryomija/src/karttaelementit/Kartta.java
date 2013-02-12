@@ -37,6 +37,12 @@ public class Kartta {
         return this.korkeus;
     }
     
+    /**Metodi tarkistaa, onko haluttu sijainti pelialueen ulkopuolella.
+     * 
+     * @param x sijainnin x-arvo
+     * @param y sijainnin y-arvo
+     * @return true, jos on ulkopuolella, muuten false
+     */
     public boolean kartanUlkopuolella(int x, int y) {
         if (x < 0 || x > this.leveys - 1 || y < 0 || y > this.korkeus) {
             return true;
@@ -44,6 +50,12 @@ public class Kartta {
         return false;
     }
 
+    /**Metodi etsii parametreissa saamastaan sijainnista ruudun.
+     * 
+     * @param x Halutun ruudun x-arvo
+     * @param y Halutun ruudun y-arvo
+     * @return Halutussa kohdassa oleva Ruutu-olio. Palauttaa null, jos ruutua ei halutusta kohdasta löydy.
+     */
     public Ruutu etsiRuutu(int x, int y) {
         //jokin fiksumpi tapa ruudun hakemiseen?
         if (kartanUlkopuolella(x, y)) {
@@ -60,22 +72,5 @@ public class Kartta {
         
         Ruutu oikeaRuutu = (Ruutu) ruutu;
         return oikeaRuutu;
-    }
-    
-    public String palautaKarttaTekstina() {
-        String tuloste = "";
-        for (int y = 0; y < this.korkeus; y++) {
-            for (int x = 0; x < this.leveys; x++) {
-                Ruutu naytettavaRuutu = this.etsiRuutu(x, y);
-                //if (nakokentassa(x, y)) {
-                    tuloste += naytettavaRuutu.naytaSisalto();
-                //}
-                //else {
-                //    System.out.print("~");
-                //}
-            }
-            tuloste += "\n";
-        }
-        return tuloste;
     }
 }

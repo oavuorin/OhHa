@@ -19,6 +19,14 @@ public class Odotusaika {
         this.vuorojaOdotettu = 0;
     }
     
+    public int getOdotettuAika() {
+        return this.vuorojaOdotettu;
+    }
+    
+    public int getRaja() {
+        return this.raja;
+    }
+    
     /**
      * Metodi palauttaa true kun vuoroja on odotettu tarpeeksi ja nollautuu tämän jälkeen.
      * 

@@ -48,7 +48,7 @@ public class GraafinenKayttoliittyma implements Runnable {
     }
     
     private void lisaaKuuntelijat(JTextArea tekstikentta) {
-        Tapahtumankuuntelija kuuntelija = new Tapahtumankuuntelija(tekstikentta, this.peli);
+        Nappaimistonkuuntelija kuuntelija = new Nappaimistonkuuntelija(tekstikentta, this.peli);
         this.frame.addKeyListener(kuuntelija);
         
     }

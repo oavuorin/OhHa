@@ -27,6 +27,9 @@ public class Ruutu {
         this.olento = olento;
     }
     
+    /**Poistaa olennon ruudusta.
+     * 
+     */
     public void poistaOlento() {
         this.olento = null;
     }
@@ -35,6 +38,10 @@ public class Ruutu {
         return this.olento;
     }
     
+    /**Palauttaa ruudussa olevan sisällön symbolin.
+     * 
+     * @return Ruudussa olevan olennon/seinän/tyhjän symboli
+     */
     public char naytaSisalto() {
         if (seina) {
             return '#';

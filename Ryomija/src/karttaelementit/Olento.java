@@ -43,6 +43,11 @@ public class Olento {
         return this.kyvyt;
     }
     
+    /**Muuttaa olennon x- ja y-arvoja halutun verran.
+     * 
+     * @param dX Muutos x-arvossa
+     * @param dY Muutos y-arvossa
+     */
     public void liikuta(int dX, int dY) {
         this.x += dX;
         this.y += dY;

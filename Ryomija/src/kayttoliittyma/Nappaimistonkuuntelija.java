@@ -7,12 +7,12 @@ import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import ryomija.Peli;
 
-public class Tapahtumankuuntelija implements KeyListener {
+public class Nappaimistonkuuntelija implements KeyListener {
     
     private JTextArea piirtaja;
     private Peli peli;
     
-    public Tapahtumankuuntelija(JTextArea piirtaja, Peli peli) {
+    public Nappaimistonkuuntelija(JTextArea piirtaja, Peli peli) {
         this.piirtaja = piirtaja;
         this.peli = peli;
     }
@@ -34,7 +34,7 @@ public class Tapahtumankuuntelija implements KeyListener {
             case KeyEvent.VK_RIGHT:
                 this.piirtaja.setText(this.peli.peliKierros("d"));
                 break;
-            case KeyEvent.VK_D:
+            case KeyEvent.VK_PERIOD:
                 this.piirtaja.setText(this.peli.peliKierros("."));
                 break;
         }

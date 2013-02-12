@@ -30,6 +30,11 @@ public class StatsTest {
     }
     
     @Test
+    public void konstruktoriAsettaaMaxHPnOikein() {
+        assertEquals(statsit.getHP(), statsit.getMaxHP());
+    }
+    
+    @Test
     public void HPnMuuttaminenToimiiAlaspain() {
         statsit.muutaHP(-4);
         assertEquals(statsit.getHP(), 6);

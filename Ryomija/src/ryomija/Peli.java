@@ -20,7 +20,7 @@ public class Peli {
     private Odotusaika odotus;
     private boolean kaynnissa;
     private String viestit;
-    private Komennonkasittelija tekstikayttis;
+    private Komennonkasittelija komentoKasittelija;
     private GraafinenKayttoliittyma graafKayttis;
     private ArrayList<Hirvio> hirviot;
     private ArrayList<Hirvio> tuhottavat;
@@ -32,7 +32,7 @@ public class Peli {
         this.odotus = new Odotusaika();
         this.hirviot = new ArrayList<Hirvio>();
         this.tuhottavat = new ArrayList<Hirvio>();
-        this.tekstikayttis = new Komennonkasittelija(this);
+        this.komentoKasittelija = new Komennonkasittelija(this);
     }
     
     public Kartta getKartta() {
@@ -51,12 +51,17 @@ public class Peli {
         this.viestit = muutos;
     }
     
+    /**Kutsuu pelinalustusmetodia ja käynnistää käyttöliittymän.
+     * 
+     */
     public void aloita() {
         alustaPeli();
         SwingUtilities.invokeLater(graafKayttis);
-        //peliKierros();
     }
     
+    /** Luo pelille kartta-, pelaaja-, ja hirvio-oliot pelaamista varten.
+     * 
+     */
     public void alustaPeli() {
         this.kaynnissa = true;
         this.kartta = new Kartta(15, 10);
@@ -69,6 +74,9 @@ public class Peli {
         this.graafKayttis = new GraafinenKayttoliittyma(this.kartta, this);
     }
     
+    /**Toimii samoin kuin alustaPeli(), mutta käytetty vain pelin testaamista varten.
+     * 
+     */
     public void testiPelinAlustus() {
         this.kartta = new Kartta(10, 10);
         this.kartta.etsiRuutu(0, 0).muutaSeinaksi(true);
@@ -94,18 +102,35 @@ public class Peli {
      */
     public String peliKierros(String komento) {
         if (this.kaynnissa) { 
-            tekstikayttis.otaKomento(komento);
-            tuhoaHirviot();
-            liikutaHirviot();
-            String tuloste = piirraPelitilanne();
-            this.viestit = "";
-            return tuloste;
+            return peliKierrosElossa(komento);
         }
         else {
-            this.viestit = "Kuolit haavoihisi ja hävisit pelin! Paina rastia lopettaaksesi";
-            String tuloste = piirraPelitilanne();
-            return tuloste;
+            return peliKierrosKuolleena();
         }
+    }
+    
+    /**Pistää pelaajan komennon komennonkäsittelijälle ja huolehtii sen jälkeisestä vuorosta.
+     * 
+     * @param komento pelaajan antama komento
+     * @return Merkkijono pelitilanteesta
+     */
+    public String peliKierrosElossa(String komento) {
+        komentoKasittelija.otaKomento(komento);
+        tuhoaHirviot();
+        liikutaHirviot();
+        String tuloste = piirraPelitilanne();
+        this.viestit = "";
+        return tuloste;
+    }
+    
+    /**Jos pelaaja on kuollut, peli ei enää siirrä komentoja eteenpäin.
+     * 
+     * @return Merkkijono pelitilanteesta
+     */
+    public String peliKierrosKuolleena() {
+        this.viestit = "Kuolit haavoihisi ja hävisit pelin! Paina rastia lopettaaksesi";
+        String tuloste = piirraPelitilanne();
+        return tuloste;
     }
     
     /**
@@ -118,6 +143,9 @@ public class Peli {
         return pelinakyma;
     }
     
+    /**
+     * Antaa tulosteen siita, miten kartta näkyy pelaajalle.
+     */
     public String piirraKarttanakyma() {
         String karttanakyma = "";
         for (int y = 0; y < this.kartta.getKorkeus(); y++) {
@@ -135,6 +163,9 @@ public class Peli {
         return karttanakyma;
     }
     
+    /**
+     * Antaa tulosteen pelaajan statsien senhetkisestä tilasta.
+     */
     public String piirraHUD() {
         String tuloste = "HP: " + this.pelaaja.getKyvyt().getHP() + " Voima: " + this.pelaaja.getKyvyt().getVoima() + " Exp: " + this.pelaaja.getKokemus();
         return tuloste;
@@ -170,11 +201,11 @@ public class Peli {
         }
     }
     
-    /**Metodi liikuttaa paratmetrin olentoa kartalla parametrien suuntaan ja hyökkää jos mahdollista.
+    /**Metodi liikuttaa paratmetrin olentoa kartalla parametrien dX ja dY suuntaan ja hyökkää jos mahdollista.
      * 
-     * @param dX
-     * @param dY
-     * @param olento 
+     * @param dX kuinka paljon olennon X-arvo muuttuu
+     * @param dY kuinka paljon olennon Y-arvo muuttuu
+     * @param olento mitä olentoa liikutetaan
      */
     public void liikutaHahmoa(int dX, int dY, Olento olento) {
         int uusiX = olento.getX() + dX;
@@ -182,12 +213,10 @@ public class Peli {
         if (this.kartta.kartanUlkopuolella(uusiX, uusiY)) {
             return;
         }
-        // jonkinlainen virheilmoitus kun ei voi liikkua
-        if (ruudussaHirvio(this.kartta.etsiRuutu(uusiX, uusiY))) {
+        if (ruudussaOlento(this.kartta.etsiRuutu(uusiX, uusiY))) {
             Olento vihollinen = this.kartta.etsiRuutu(uusiX, uusiY).getOlento();
             lyo(olento, vihollinen);
         }
-        //ylipaatansa ois kiva jos otuksen liikuttaminen hoitus vahan napparammin (ei tarttis saataa noiden asetaolento- ja liikuta-hommeleiden kaa)
         if (ruutuTyhja(this.kartta.etsiRuutu(uusiX, uusiY))) {
             this.kartta.etsiRuutu(uusiX, uusiY).asetaOlento(olento);
             this.kartta.etsiRuutu(olento.getX(), olento.getY()).asetaOlento(null);
@@ -195,10 +224,20 @@ public class Peli {
         }
     }
     
+    /**Kuin edellinen, mutta pelaajan liikuttelua varten.
+     * 
+     * @param dX
+     * @param dY 
+     */
     public void liikutaPelaajaa(int dX, int dY) {
         liikutaHahmoa(dX, dY, this.pelaaja);
     }
     
+    /**Tarkastaa, onko haluttu ruutu tyhjä.
+     * 
+     * @param ruutu Tarkasteltava ruutu.
+     * @return true, jos ruutu on tyhjä, muuten false.
+     */
     public boolean ruutuTyhja(Ruutu ruutu) {
         if (!ruutu.onkoSeina() && ruutu.getOlento() == null) {
             return true;
@@ -206,19 +245,30 @@ public class Peli {
         return false;
     }
     
-    public boolean ruudussaHirvio(Ruutu ruutu) {
+    
+    /**Tarkastaa, onko ruudussa olento.
+     * 
+     * @param ruutu Tarkasteltava ruutu
+     * @return True, jos ruudussa on olento, muuten false
+     */
+    public boolean ruudussaOlento(Ruutu ruutu) {
         if (ruutu.getOlento() != null) {
             return true;
         }
         return false;
     }
     
+    /**Metodilla katsotaan, osutaanko taistelussa.
+     * 
+     * @param hyokkaaja Hyökkäävä osapuoli
+     * @param puolustaja Lyötävä osapuoli
+     */
     public void lyo(Olento hyokkaaja, Olento puolustaja) {
         if (hyokkaaja instanceof Hirvio && puolustaja instanceof Hirvio) {
             return;
         }
         if (noppa.nextInt(9) < hyokkaaja.getKyvyt().getVoima()) {
-            osuma(puolustaja);
+            osuma(hyokkaaja, puolustaja);
         }
         else {
             huti(puolustaja);
@@ -226,21 +276,38 @@ public class Peli {
         System.out.println();
     }
     
-    public void osuma(Olento Kohde) {
-        Kohde.getKyvyt().muutaHP(-3);
-        if (Kohde.getKyvyt().getHP() > 0) {
-            if (Kohde instanceof Hirvio) {
-                this.viestit += "Osuit! Vihulla " + Kohde.getKyvyt().getHP() + " hiparia jaljella. ";
-            }
-            else {
-                this.viestit += "Vihu osuu sinuun! Sinulla on " + Kohde.getKyvyt().getHP() + " hiparia jaljella. ";
-            }
+    /**Osumassa vähennetaan kohteen HP:ta ja siirrytään eteenpäin.
+     * 
+     * @param hyokkaaja hyökkaavä osapuoli
+     * @param Kohde lyötävä osapuoli
+     */
+    public void osuma(Olento hyokkaaja, Olento kohde) {
+        kohde.getKyvyt().muutaHP(noppa.nextInt(hyokkaaja.getKyvyt().getVoima()));
+        if (kohde.getKyvyt().getHP() > 0) {
+            eiTappavaOsuma(kohde);
         }
         else {
-            tappo(Kohde);
+            tappo(kohde);
         }
     }
     
+    /**Muuttaa viestiosuuden oikeanlaiseksi, kun joku on saanut osuman joka ei tapa.
+     * 
+     * @param kohde Olento, jota on lyöty
+     */
+    public void eiTappavaOsuma(Olento kohde) {
+        if (kohde instanceof Hirvio) {
+                this.viestit += "Osuit! Vihulla " + kohde.getKyvyt().getHP() + " hiparia jaljella. ";
+            }
+        else {
+                this.viestit += "Vihu osuu sinuun! Sinulla on " + kohde.getKyvyt().getHP() + " hiparia jaljella. ";
+        }
+    }
+    
+    /**Muuttaa viestiosuuden oikeanlaiseksi, kun lyönti ei osu.
+     * 
+     * @param Kohde Olento, jota on yritetty lyödä.
+     */
     public void huti(Olento Kohde) {
         if (Kohde instanceof Pelaaja) {
             this.viestit += "Vihollinen löi hudin! ";
@@ -250,6 +317,10 @@ public class Peli {
         }
     }
     
+    /**Kun lyönti tappaa, metodi poistaa Hirvion tai pelaajan tapauksessa lopettaa pelin.
+     * 
+     * @param Kohde Lyöty olento
+     */
     public void tappo(Olento Kohde) {
         if (Kohde instanceof Hirvio) {
             this.viestit += "Vihollinen kuoli!";
@@ -263,11 +334,17 @@ public class Peli {
         }
     }
     
+    /**Kun pelaaja häviää pelin, peliviesti asetetaan sopivaksi ja tila kuolleeksi.
+     * 
+     */
     public void havio() {
         this.viestit += "Kuolit haavoihisi ja hävisit pelin! :((((";
         this.kaynnissa = false;
     }
     
+    /**Liikuttaa hirvio-olioita pelikentällä.
+     * 
+     */
     public void liikutaHirviot() {
         for (Hirvio hirvio : this.hirviot) {
             if (nakokentassa(hirvio.getX(), hirvio.getY())) {
@@ -288,7 +365,7 @@ public class Peli {
     }
     
     /**
-     * Metodi poistaa kuolleet hirviot posi pelistä.
+     * Metodi poistaa kuolleet hirviot pois pelistä.
      */
     public void tuhoaHirviot() {
         this.hirviot.removeAll(this.tuhottavat);

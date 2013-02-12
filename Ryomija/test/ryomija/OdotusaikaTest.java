@@ -25,6 +25,16 @@ public class OdotusaikaTest {
     }
     
     @Test
+    public void ParametritonKonstruktoriAsettaaRajaksi5() {
+        assertEquals(5, odottaja.getRaja());
+    }
+    
+    @Test
+    public void KonstruktoriAsettaaAloitusArvoksi0() {
+        assertEquals(0, odottaja.getOdotettuAika());
+    }
+    
+    @Test
     public void VahanOdottaminenPalauttaaFalse() {
         odottaja.odota();
         odottaja.odota();

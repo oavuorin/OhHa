@@ -24,6 +24,10 @@ public class Stats {
         return this.voima;
     }
     
+    public int getMaxHP() {
+        return this.maxHP;
+    }
+    
     public void muutaHP(int muutos) {
         this.HP += muutos;
         if (this.HP > this.maxHP) {
