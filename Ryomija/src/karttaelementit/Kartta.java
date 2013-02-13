@@ -37,6 +37,22 @@ public class Kartta {
         return this.korkeus;
     }
     
+    public List getHirviot() {
+        List hirviolista = new ArrayList<Hirvio>();
+        
+        for (int y = 0; y < this.korkeus; y++) {
+            for (int x = 0; x < this.leveys; x++) {
+                if (etsiRuutu(x, y).getOlento() != null) {
+                    if (etsiRuutu(x, y).getOlento() instanceof Hirvio) {
+                        hirviolista.add(etsiRuutu(x, y).getOlento());
+                    }
+                }
+            }
+        }
+        
+        return hirviolista;
+    }
+    
     /**Metodi tarkistaa, onko haluttu sijainti pelialueen ulkopuolella.
      * 
      * @param x sijainnin x-arvo

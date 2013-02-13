@@ -2,6 +2,7 @@ package karttaelementit;
 
 import java.io.File;
 import java.util.Scanner;
+import ryomija.Stats;
 
 /**Kartanrakentaja huolehtii siitä, että pelikartalle tulee oikeat jutut oikeisiin paikkoihin.
  * 
@@ -19,7 +20,7 @@ public class Kartanrakentaja {
             int leveys = lueKartanLeveys(tiedosto);
             int korkeus = lueKartanKorkeus(tiedosto);
             Kartta kartta = new Kartta(leveys, korkeus);
-            lisaaSeinat(kartta, tiedosto);
+            lisaaSeinatJaOlennot(kartta, tiedosto);
             return kartta;
         } catch (Exception e) {
             System.out.println("Tiedoston lukeminen epäonnistui, haista vittu");
@@ -45,7 +46,7 @@ public class Kartanrakentaja {
         return korkeus;
     }
     
-    public void lisaaSeinat(Kartta kartta, File tiedosto) throws Exception {
+    public void lisaaSeinatJaOlennot(Kartta kartta, File tiedosto) throws Exception {
         Scanner lukija = new Scanner(tiedosto);
         
         int rivinro = 0;
@@ -56,6 +57,9 @@ public class Kartanrakentaja {
                 if (rivi.charAt(merkki) == '#') {
                     kartta.etsiRuutu(merkki, rivinro).muutaSeinaksi(true);
                 }
+                if (rivi.charAt(merkki) != '#' && rivi.charAt(merkki) != '.') {
+                    lisaaOlentoRuutuun(kartta.etsiRuutu(merkki, rivinro), rivi.charAt(merkki), merkki, rivinro);
+                }
             }
             rivinro++;
         }
@@ -63,7 +67,12 @@ public class Kartanrakentaja {
         lukija.close();
     }
     
-    public void lisaaOlennot() {
-        
+    public void lisaaOlentoRuutuun(Ruutu ruutu, char merkki, int x, int y) {
+        if (merkki == '@') {
+            ruutu.asetaOlento(new Pelaaja(x, y, '@', new Stats(10, 5)));
+        }
+        else if (merkki == 'o') {
+            ruutu.asetaOlento(new Hirvio(x, y, 'o', new Stats(5, 3)));
+        }
     }
 }

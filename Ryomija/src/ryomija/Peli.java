@@ -22,15 +22,14 @@ public class Peli {
     private String viestit;
     private Komennonkasittelija komentoKasittelija;
     private GraafinenKayttoliittyma graafKayttis;
-    private ArrayList<Hirvio> hirviot;
-    private ArrayList<Hirvio> tuhottavat;
+    private List<Hirvio> hirviot;
+    private List<Hirvio> tuhottavat;
     
     public Peli() {
         this.kaynnissa = true;
         this.viestit = "Tervetuloa peliin! Yritä selvitä hengissä. ";
         this.noppa = new Random();
         this.odotus = new Odotusaika();
-        this.hirviot = new ArrayList<Hirvio>();
         this.tuhottavat = new ArrayList<Hirvio>();
         this.komentoKasittelija = new Komennonkasittelija(this);
     }
@@ -66,11 +65,9 @@ public class Peli {
         this.kaynnissa = true;
         Kartanrakentaja rakentaja = new Kartanrakentaja();
         this.kartta = rakentaja.rakennaKartta();
-//        this.pelaaja = new Pelaaja(1, 1, '@', new Stats(10, 4));
-//        this.kartta.etsiRuutu(this.pelaaja.getX(), this.pelaaja.getY()).asetaOlento(this.pelaaja);
-//        Hirvio orkki = new Hirvio(4, 1, 'o', new Stats(5, 5), 5);
-//        this.kartta.etsiRuutu(orkki.getX(), orkki.getY()).asetaOlento(orkki);
-//        hirviot.add(orkki);
+        this.pelaaja = new Pelaaja(1, 1, '@', new Stats(10, 4));
+        this.kartta.etsiRuutu(this.pelaaja.getX(), this.pelaaja.getY()).asetaOlento(this.pelaaja);
+        this.hirviot = this.kartta.getHirviot();
         this.graafKayttis = new GraafinenKayttoliittyma(this.kartta, this);
     }
     
