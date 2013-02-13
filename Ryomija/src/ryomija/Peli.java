@@ -64,11 +64,10 @@ public class Peli {
      */
     public void alustaPeli() {
         this.kaynnissa = true;
-        this.kartta = new Kartta(15, 10);
         Kartanrakentaja rakentaja = new Kartanrakentaja();
-        rakentaja.lisaaSeinat(this.kartta);
-        this.pelaaja = new Pelaaja(1, 1, '@', new Stats(10, 4));
-        this.kartta.etsiRuutu(this.pelaaja.getX(), this.pelaaja.getY()).asetaOlento(this.pelaaja);
+        this.kartta = rakentaja.rakennaKartta();
+//        this.pelaaja = new Pelaaja(1, 1, '@', new Stats(10, 4));
+//        this.kartta.etsiRuutu(this.pelaaja.getX(), this.pelaaja.getY()).asetaOlento(this.pelaaja);
 //        Hirvio orkki = new Hirvio(4, 1, 'o', new Stats(5, 5), 5);
 //        this.kartta.etsiRuutu(orkki.getX(), orkki.getY()).asetaOlento(orkki);
 //        hirviot.add(orkki);

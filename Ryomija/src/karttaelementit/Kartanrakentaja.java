@@ -12,17 +12,41 @@ public class Kartanrakentaja {
     public Kartanrakentaja() {
     }
     
-    
-    public void lisaaSeinat(Kartta kartta) {
+    public Kartta rakennaKartta() {
         File tiedosto = new File("tasot/taso.txt");
-        Scanner lukija = null;
         
         try {
-            lukija = new Scanner(tiedosto);
+            int leveys = lueKartanLeveys(tiedosto);
+            int korkeus = lueKartanKorkeus(tiedosto);
+            Kartta kartta = new Kartta(leveys, korkeus);
+            lisaaSeinat(kartta, tiedosto);
+            return kartta;
         } catch (Exception e) {
             System.out.println("Tiedoston lukeminen epäonnistui, haista vittu");
-            return;
+            return null;
         }
+    }
+    
+    public int lueKartanLeveys(File tiedosto) throws Exception {
+        Scanner lukija = new Scanner(tiedosto);
+        int leveys = lukija.nextLine().length();
+        lukija.close();
+        return leveys;
+    }
+    
+    public int lueKartanKorkeus(File tiedosto) throws Exception {
+        Scanner lukija = new Scanner(tiedosto);
+        int korkeus = 0;
+        while (lukija.hasNextLine()) {
+            String rivi = lukija.nextLine();
+            korkeus++;
+        }
+        lukija.close();
+        return korkeus;
+    }
+    
+    public void lisaaSeinat(Kartta kartta, File tiedosto) throws Exception {
+        Scanner lukija = new Scanner(tiedosto);
         
         int rivinro = 0;
         
@@ -40,5 +64,6 @@ public class Kartanrakentaja {
     }
     
     public void lisaaOlennot() {
+        
     }
 }
