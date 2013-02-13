@@ -2,6 +2,7 @@ package ryomija;
 
 import karttaelementit.*;
 import kayttoliittyma.GraafinenKayttoliittyma;
+import java.lang.Math;
 import java.util.Random;
 import java.util.List;
 import java.util.ArrayList;
@@ -64,12 +65,13 @@ public class Peli {
     public void alustaPeli() {
         this.kaynnissa = true;
         this.kartta = new Kartta(15, 10);
-        lisaaSeinat();
+        Kartanrakentaja rakentaja = new Kartanrakentaja();
+        rakentaja.lisaaSeinat(this.kartta);
         this.pelaaja = new Pelaaja(1, 1, '@', new Stats(10, 4));
         this.kartta.etsiRuutu(this.pelaaja.getX(), this.pelaaja.getY()).asetaOlento(this.pelaaja);
-        Hirvio orkki = new Hirvio(4, 1, 'o', new Stats(5, 5), 5);
-        this.kartta.etsiRuutu(orkki.getX(), orkki.getY()).asetaOlento(orkki);
-        hirviot.add(orkki);
+//        Hirvio orkki = new Hirvio(4, 1, 'o', new Stats(5, 5), 5);
+//        this.kartta.etsiRuutu(orkki.getX(), orkki.getY()).asetaOlento(orkki);
+//        hirviot.add(orkki);
         this.graafKayttis = new GraafinenKayttoliittyma(this.kartta, this);
     }
     
@@ -83,18 +85,6 @@ public class Peli {
         this.kartta.etsiRuutu(this.pelaaja.getX(), this.pelaaja.getY()).asetaOlento(this.pelaaja);
     }
     
-    public void lisaaSeinat() {
-        for (int y = 0; y < this.kartta.getKorkeus(); y++) {
-            for (int x = 0; x < this.kartta.getLeveys(); x++) {
-                if (x == 0 || y == 0 || x == this.kartta.getLeveys() - 1 || y == this.kartta.getKorkeus() - 1) {
-                    this.kartta.etsiRuutu(x, y).muutaSeinaksi(true);
-                }
-                if (x == 2 && y != 8) {
-                    this.kartta.etsiRuutu(x, y).muutaSeinaksi(true);
-                }
-            }
-        }
-    }
     
     /**
      * Tapahtuu pelaajan antaman komennon jalkeen, antaa tulosteen pelivuorosta kayttoliittymalle
@@ -177,18 +167,65 @@ public class Peli {
      * @return 
      */
     public boolean nakokentassa(int x, int y) {
-        int dx = x - this.pelaaja.getX();
-        int dy = y - this.pelaaja.getY();
-        if (dx < 0) {
-            dx *= -1;
-        }
-        if (dy < 0) {
-            dy *= -1;
-        }
+        int dx = Math.abs(x - this.pelaaja.getX());
+        int dy = Math.abs(y - this.pelaaja.getY());
         if (dx + dy > 3) {
             return false;
         }
+        if (seinanTakana(lahempiX(x), lahempiY(y))) {
+            return false;
+        }
         return true;
+    }
+    
+    /**Metodi palauttaa true, jos haettu kohta kartalla on pelaajaan nähden seinän takana.
+     * 
+     * @param x
+     * @param y
+     * @return 
+     */
+    public boolean seinanTakana(int x, int y) {
+        if (this.kartta.etsiRuutu(x, y).onkoSeina()) {
+            return true;
+        }
+        else if (x == this.pelaaja.getX() && y == this.pelaaja.getY()) {
+            return false;
+        }
+        return seinanTakana(lahempiX(x), lahempiY(y));
+    }
+    
+    /**Palauttaa x-arvon, joka on yhden lähempänä pelaajan x-arvoa kuin argumentti.
+     * 
+     * @param x
+     * @return Integer joka on yhden lähempänä x:ää
+     */
+    public int lahempiX(int x) {
+        if (pelaaja.getX() < x) {
+            return x - 1;
+        }
+        else if (pelaaja.getX() > x) {
+            return x + 1;
+        }
+        else {
+            return x;
+        }
+    }
+    
+    /**Palauttaa y-arvon, joka on yhden lähempänä pelaajan y-arvoa kuin argumentti.
+     * 
+     * @param y
+     * @return integer joka on yhden lähempänä y:tä
+     */
+    public int lahempiY(int y) {
+        if (pelaaja.getY() < y) {
+            return y - 1;
+        }
+        else if (pelaaja.getY() > y) {
+            return y + 1;
+        }
+        else {
+            return y;
+        }
     }
     
     /**Pelaajahahmo lepää hetken, tarpeeksi levättyään paranee
