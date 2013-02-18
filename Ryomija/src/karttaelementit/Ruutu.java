@@ -1,5 +1,7 @@
 package karttaelementit;
 
+import esineet.Esine;
+
 /**
  * Pelialue koostuu ruuduista, jotka voivat pitää sisällään tyhjää tilaa, seinän tai olennon.
  * 
@@ -9,6 +11,7 @@ public class Ruutu {
     boolean seina;
     boolean nahty;
     Olento olento;
+    Esine esine;
     
     public Ruutu(boolean seina) {
         this.seina = seina;

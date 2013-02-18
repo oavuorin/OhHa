@@ -11,7 +11,7 @@ public class Pelaaja extends Olento {
     private int kokemus;
     
     public Pelaaja(int x, int y, char symboli) {
-        super(x, y, symboli);
+        super(x, y, symboli, new Stats(10, 4));
         this.kokemus = 0;
     }
     

@@ -37,6 +37,12 @@ public class Nappaimistonkuuntelija implements KeyListener {
             case KeyEvent.VK_PERIOD:
                 this.piirtaja.setText(this.peli.peliKierros("."));
                 break;
+            case KeyEvent.VK_I:
+                this.piirtaja.setText(this.peli.peliKierros("i"));
+                break;
+            case KeyEvent.VK_1:
+                this.piirtaja.setText(this.peli.peliKierros("1"));
+                break;
         }
     }
     

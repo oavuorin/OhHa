@@ -2,6 +2,7 @@ package ryomija;
 
 import karttaelementit.*;
 import kayttoliittyma.GraafinenKayttoliittyma;
+import esineet.*;
 import java.lang.Math;
 import java.util.Random;
 import java.util.List;
@@ -18,15 +19,15 @@ public class Peli {
     private Pelaaja pelaaja;
     private Random noppa;
     private Odotusaika odotus;
-    private boolean pelitila;
+    private int pelitila;
     private String viestit;
+    private Inventaario inventaario;
     private Komennonkasittelija komentoKasittelija;
     private GraafinenKayttoliittyma graafKayttis;
     private List<Hirvio> hirviot;
     private List<Hirvio> tuhottavat;
     
     public Peli() {
-        this.pelitila = true;
         this.viestit = "Tervetuloa peliin! Yritä selvitä hengissä. ";
         this.noppa = new Random();
         this.odotus = new Odotusaika();
@@ -46,8 +47,16 @@ public class Peli {
         return this.odotus;
     }
     
+    public Inventaario getInventaario() {
+        return this.inventaario;
+    }
+    
     public void setViestit(String muutos) {
         this.viestit = muutos;
+    }
+    
+    public void setPelitila(int tila) {
+        this.pelitila = tila;
     }
     
     /**Kutsuu pelinalustusmetodia ja käynnistää käyttöliittymän.
@@ -62,12 +71,14 @@ public class Peli {
      * 
      */
     public void alustaPeli() {
-        this.pelitila = true;
+        this.pelitila = 1;
         Kartanrakentaja rakentaja = new Kartanrakentaja();
         this.kartta = rakentaja.rakennaKartta();
         this.pelaaja = new Pelaaja(1, 1, '@', new Stats(10, 4));
         this.kartta.etsiRuutu(this.pelaaja.getX(), this.pelaaja.getY()).asetaOlento(this.pelaaja);
         this.hirviot = this.kartta.getHirviot();
+        this.inventaario = new Inventaario();
+        this.inventaario.lisaaEsine(new Parannusjuoma(this));
         this.graafKayttis = new GraafinenKayttoliittyma(this.kartta, this);
     }
     
@@ -86,8 +97,11 @@ public class Peli {
      * Tapahtuu pelaajan antaman komennon jalkeen, antaa tulosteen pelivuorosta kayttoliittymalle
      */
     public String peliKierros(String komento) {
-        if (this.pelitila) { 
+        if (this.pelitila == 1) { 
             return peliKierrosElossa(komento);
+        }
+        if (this.pelitila == 2) {
+            return peliKierrosInventaariossa(komento);
         }
         else {
             return peliKierrosKuolleena();
@@ -100,12 +114,23 @@ public class Peli {
      * @return Merkkijono pelitilanteesta
      */
     public String peliKierrosElossa(String komento) {
-        komentoKasittelija.otaKomento(komento);
-        tuhoaHirviot();
-        liikutaHirviot();
-        String tuloste = piirraPelitilanne();
+        komentoKasittelija.otaKomentoNormaalitilassa(komento);
+        String tuloste = "";
+        if (this.pelitila == 1) {
+            tuhoaHirviot();
+            liikutaHirviot();
+            tuloste = piirraPelitilanne();
+        }
+        if (this.pelitila == 2) {
+            tuloste = piirraInventaario();
+        }
         this.viestit = "";
         return tuloste;
+    }
+    
+    public String peliKierrosInventaariossa(String komento) {
+        this.komentoKasittelija.otaKomentoInventaariossa(komento);
+        return piirraPelitilanne();
     }
     
     /**Jos pelaaja on kuollut, peli ei enää siirrä komentoja eteenpäin.
@@ -117,6 +142,7 @@ public class Peli {
         String tuloste = piirraPelitilanne();
         return tuloste;
     }
+    
     
     /**
      * Antaa tulosteen siita, mika nakyy pelaajalle.
@@ -154,6 +180,10 @@ public class Peli {
     public String piirraHUD() {
         String tuloste = "HP: " + this.pelaaja.getKyvyt().getHP() + " Voima: " + this.pelaaja.getKyvyt().getVoima() + " Exp: " + this.pelaaja.getKokemus();
         return tuloste;
+    }
+    
+    public String piirraInventaario() {
+        return this.inventaario.toString();
     }
     
     /**Metodi kertoo, voiko pelaaja nähdä koordinaateissa olevaan ruutuun.
@@ -372,7 +402,7 @@ public class Peli {
      */
     public void havio() {
         this.viestit += "Kuolit haavoihisi ja hävisit pelin! :((((";
-        this.pelitila = false;
+        this.pelitila = 0;
     }
     
     /**Liikuttaa hirvio-olioita pelikentällä.
