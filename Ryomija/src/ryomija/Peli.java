@@ -18,7 +18,7 @@ public class Peli {
     private Pelaaja pelaaja;
     private Random noppa;
     private Odotusaika odotus;
-    private boolean kaynnissa;
+    private boolean pelitila;
     private String viestit;
     private Komennonkasittelija komentoKasittelija;
     private GraafinenKayttoliittyma graafKayttis;
@@ -26,7 +26,7 @@ public class Peli {
     private List<Hirvio> tuhottavat;
     
     public Peli() {
-        this.kaynnissa = true;
+        this.pelitila = true;
         this.viestit = "Tervetuloa peliin! Yritä selvitä hengissä. ";
         this.noppa = new Random();
         this.odotus = new Odotusaika();
@@ -62,7 +62,7 @@ public class Peli {
      * 
      */
     public void alustaPeli() {
-        this.kaynnissa = true;
+        this.pelitila = true;
         Kartanrakentaja rakentaja = new Kartanrakentaja();
         this.kartta = rakentaja.rakennaKartta();
         this.pelaaja = new Pelaaja(1, 1, '@', new Stats(10, 4));
@@ -86,7 +86,7 @@ public class Peli {
      * Tapahtuu pelaajan antaman komennon jalkeen, antaa tulosteen pelivuorosta kayttoliittymalle
      */
     public String peliKierros(String komento) {
-        if (this.kaynnissa) { 
+        if (this.pelitila) { 
             return peliKierrosElossa(komento);
         }
         else {
@@ -124,7 +124,7 @@ public class Peli {
     public String piirraPelitilanne() {
         String pelinakyma = "";
         pelinakyma += piirraKarttanakyma();
-        pelinakyma += piirraHUD() + "\n" + this.viestit;
+        pelinakyma += piirraHUD() + "\n" + lisaaRivinvaihdot(this.viestit);
         return pelinakyma;
     }
     
@@ -372,7 +372,7 @@ public class Peli {
      */
     public void havio() {
         this.viestit += "Kuolit haavoihisi ja hävisit pelin! :((((";
-        this.kaynnissa = false;
+        this.pelitila = false;
     }
     
     /**Liikuttaa hirvio-olioita pelikentällä.
@@ -403,5 +403,21 @@ public class Peli {
     public void tuhoaHirviot() {
         this.hirviot.removeAll(this.tuhottavat);
         tuhottavat.clear();
+    }
+    
+    /**Metodi lisää ruudulla näkyviin viesteihin rivinvaihtoja, jotta ne eivät ylittäisi ruudun reunaa.
+     * 
+     * @param teksti Teksti, johon rivinvaihdot lisätään.
+     * @return Teksti, johon on lisätty rivinvaihdot.
+     */
+    public String lisaaRivinvaihdot(String teksti) {
+        for (int merkki = 0; merkki < teksti.length(); merkki++) {
+            if (merkki % 50 == 0) {
+                String alkupaa = teksti.substring(0, merkki) + "\n";
+                String loppupaa = teksti.substring(merkki, teksti.length());
+                teksti = alkupaa + loppupaa;
+            }
+        }
+        return teksti;
     }
 }
