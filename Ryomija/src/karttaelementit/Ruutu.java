@@ -30,15 +30,24 @@ public class Ruutu {
         this.olento = olento;
     }
     
-    /**Poistaa olennon ruudusta.
-     * 
-     */
     public void poistaOlento() {
         this.olento = null;
     }
     
     public Olento getOlento() {
         return this.olento;
+    }
+    
+    public void asetaEsine(Esine esine) {
+        this.esine = esine;
+    }
+    
+    public void poistaEsine() {
+        this.esine = null;
+    }
+    
+    public Esine getEsine() {
+        return this.esine;
     }
     
     /**Palauttaa ruudussa olevan sisällön symbolin.
@@ -49,9 +58,12 @@ public class Ruutu {
         if (seina) {
             return '#';
         }
-        if (olento == null) {
-            return '.';
+        if (this.olento != null) {
+            return this.olento.getSymboli();
         }
-        return this.olento.getSymboli();
+        else if (this.esine != null) {
+            return this.esine.getSymboli();
+        }
+        return '.';
     }
 }

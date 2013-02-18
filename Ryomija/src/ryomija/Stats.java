@@ -34,4 +34,8 @@ public class Stats {
             this.HP = this.maxHP;
         }
     }
+    
+    public void muutaVoima(int muutos) {
+        this.voima += muutos;
+    }
 }

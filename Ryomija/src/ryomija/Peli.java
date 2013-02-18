@@ -59,6 +59,10 @@ public class Peli {
         this.pelitila = tila;
     }
     
+    public void lisaaViesteihin(String lisays) {
+        this.viestit += lisays;
+    }
+    
     /**Kutsuu pelinalustusmetodia ja käynnistää käyttöliittymän.
      * 
      */
@@ -72,12 +76,13 @@ public class Peli {
      */
     public void alustaPeli() {
         this.pelitila = 1;
-        Kartanrakentaja rakentaja = new Kartanrakentaja();
+        Kartanrakentaja rakentaja = new Kartanrakentaja(this);
         this.kartta = rakentaja.rakennaKartta();
         this.pelaaja = new Pelaaja(1, 1, '@', new Stats(10, 4));
         this.kartta.etsiRuutu(this.pelaaja.getX(), this.pelaaja.getY()).asetaOlento(this.pelaaja);
         this.hirviot = this.kartta.getHirviot();
         this.inventaario = new Inventaario();
+        this.inventaario.lisaaEsine(new Parannusjuoma(this));
         this.inventaario.lisaaEsine(new Parannusjuoma(this));
         this.graafKayttis = new GraafinenKayttoliittyma(this.kartta, this);
     }
@@ -386,14 +391,28 @@ public class Peli {
      */
     public void tappo(Olento Kohde) {
         if (Kohde instanceof Hirvio) {
-            this.viestit += "Vihollinen kuoli!";
+            this.viestit += "Surmasit vihollisen!";
             Hirvio monseri = (Hirvio)Kohde;
-            this.pelaaja.lisaaKokemusta(monseri.getExp());
             this.kartta.etsiRuutu(monseri.getX(), monseri.getY()).asetaOlento(null);
             this.tuhottavat.add(monseri);
         }
         else if (Kohde instanceof Pelaaja) {
             havio();
+        }
+    }
+    
+    /**Hahmo poimii maasta esineen ja lisää sen inventaarioon jos se sinne mahtuu. Esine katoaa maasta.
+     * 
+     */
+    public void poimi() {
+        if (this.kartta.etsiRuutu(this.pelaaja.getX(), this.pelaaja.getY()).getEsine() != null) {
+            Ruutu poimittavaRuutu = this.kartta.etsiRuutu(this.pelaaja.getX(), this.pelaaja.getY());
+            if (this.inventaario.lisaaEsine(poimittavaRuutu.getEsine())) {
+                this.viestit += "Poimit esineen " + poimittavaRuutu.getEsine();
+                poimittavaRuutu.asetaEsine(null);
+                return;
+            }
+            this.viestit += "Esine ei mahtunut reppuusi. ";
         }
     }
     

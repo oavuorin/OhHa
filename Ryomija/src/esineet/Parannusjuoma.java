@@ -8,7 +8,7 @@ public class Parannusjuoma implements Esine {
     public Peli peli;
     
     public Parannusjuoma(Peli peli) {
-        this.symboli = 'i';
+        this.symboli = '!';
         this.nimi = "Parannusjuoma";
         this.peli = peli;
     }
@@ -16,6 +16,12 @@ public class Parannusjuoma implements Esine {
     @Override
     public void kayta() {
         this.peli.getPelaaja().getKyvyt().muutaHP(5);
+        this.peli.lisaaViesteihin("Joit parannusjuoman. ");
+    }
+    
+    @Override
+    public char getSymboli() {
+        return this.symboli;
     }
     
     @Override

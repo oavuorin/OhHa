@@ -37,11 +37,38 @@ public class Nappaimistonkuuntelija implements KeyListener {
             case KeyEvent.VK_PERIOD:
                 this.piirtaja.setText(this.peli.peliKierros("."));
                 break;
+            case KeyEvent.VK_COMMA:
+                this.piirtaja.setText(this.peli.peliKierros(","));
+                break;
             case KeyEvent.VK_I:
                 this.piirtaja.setText(this.peli.peliKierros("i"));
                 break;
             case KeyEvent.VK_1:
                 this.piirtaja.setText(this.peli.peliKierros("1"));
+                break;
+            case KeyEvent.VK_2:
+                this.piirtaja.setText(this.peli.peliKierros("2"));
+                break;
+            case KeyEvent.VK_3:
+                this.piirtaja.setText(this.peli.peliKierros("3"));
+                break;
+            case KeyEvent.VK_4:
+                this.piirtaja.setText(this.peli.peliKierros("4"));
+                break;
+            case KeyEvent.VK_5:
+                this.piirtaja.setText(this.peli.peliKierros("5"));
+                break;
+            case KeyEvent.VK_6:
+                this.piirtaja.setText(this.peli.peliKierros("6"));
+                break;
+            case KeyEvent.VK_7:
+                this.piirtaja.setText(this.peli.peliKierros("7"));
+                break;
+            case KeyEvent.VK_8:
+                this.piirtaja.setText(this.peli.peliKierros("8"));
+                break;
+            case KeyEvent.VK_9:
+                this.piirtaja.setText(this.peli.peliKierros("9"));
                 break;
         }
     }

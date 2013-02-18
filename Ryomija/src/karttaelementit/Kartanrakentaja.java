@@ -3,6 +3,8 @@ package karttaelementit;
 import java.io.File;
 import java.util.Scanner;
 import ryomija.Stats;
+import ryomija.Peli;
+import esineet.*;
 
 /**Kartanrakentaja huolehtii siitä, että pelikartalle tulee oikeat jutut oikeisiin paikkoihin.
  * 
@@ -10,7 +12,10 @@ import ryomija.Stats;
  */
 public class Kartanrakentaja {
     
-    public Kartanrakentaja() {
+    private Peli peli;
+    
+    public Kartanrakentaja(Peli peli) {
+        this.peli = peli;
     }
     
     public Kartta rakennaKartta() {
@@ -58,7 +63,7 @@ public class Kartanrakentaja {
                     kartta.etsiRuutu(merkki, rivinro).muutaSeinaksi(true);
                 }
                 if (rivi.charAt(merkki) != '#' && rivi.charAt(merkki) != '.') {
-                    lisaaOlentoRuutuun(kartta.etsiRuutu(merkki, rivinro), rivi.charAt(merkki), merkki, rivinro);
+                    lisaaOlentoTaiEsineRuutuun(kartta.etsiRuutu(merkki, rivinro), rivi.charAt(merkki), merkki, rivinro);
                 }
             }
             rivinro++;
@@ -67,12 +72,18 @@ public class Kartanrakentaja {
         lukija.close();
     }
     
-    public void lisaaOlentoRuutuun(Ruutu ruutu, char merkki, int x, int y) {
+    public void lisaaOlentoTaiEsineRuutuun(Ruutu ruutu, char merkki, int x, int y) {
         if (merkki == '@') {
             ruutu.asetaOlento(new Pelaaja(x, y, '@', new Stats(10, 5)));
         }
         else if (merkki == 'o') {
             ruutu.asetaOlento(new Hirvio(x, y, 'o', new Stats(5, 3)));
+        }
+        else if (merkki == '!') {
+            ruutu.asetaEsine(new Parannusjuoma(this.peli));
+        }
+        else if (merkki == 'I') {
+            ruutu.asetaEsine(new Voimannostopuntti(this.peli));
         }
     }
 }

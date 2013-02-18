@@ -36,6 +36,9 @@ public class Komennonkasittelija {
         else if (komento.equals("i")) {
             this.peli.setPelitila(2);
         }
+        else if (komento.equals(",")) {
+            this.peli.poimi();
+        }
     }
     
     public void otaKomentoInventaariossa(String komento) {
