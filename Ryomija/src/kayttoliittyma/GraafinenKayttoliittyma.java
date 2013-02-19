@@ -2,13 +2,8 @@ package kayttoliittyma;
 
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.Font;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 import karttaelementit.Kartta;
@@ -29,7 +24,7 @@ public class GraafinenKayttoliittyma implements Runnable {
     @Override
     public void run() {
         frame = new JFrame("Tunkio");
-        frame.setPreferredSize(new Dimension(640, 480));
+        frame.setPreferredSize(new Dimension(640, 520));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
         luoKomponentit(frame.getContentPane());

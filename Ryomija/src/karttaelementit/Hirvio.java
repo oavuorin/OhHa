@@ -9,12 +9,19 @@ import ryomija.Stats;
  */
 public class Hirvio extends Olento {
     
-    public Hirvio(int x, int y, char symboli) {
-        super(x, y, symboli);
-    }
+    private String nimi;
     
     public Hirvio(int x, int y, char symboli, Stats kyvyt) {
         super(x, y, symboli, kyvyt);
+        this.nimi = "Hirviö";
     }
     
+    public Hirvio(int x, int y, char symboli, Stats kyvyt, String nimi) {
+        super(x, y, symboli, kyvyt);
+        this.nimi = nimi;
+    }
+    
+    public String getNimi() {
+        return this.nimi;
+    }
 }

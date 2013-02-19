@@ -15,7 +15,8 @@ public class Voimannostopuntti implements Esine {
     
     @Override
     public void kayta() {
-        this.peli.getPelaaja().getKyvyt().muutaVoima(2);
+        this.peli.getPelaaja().getKyvyt().muutaVoima(1);
+        this.peli.lisaaViesteihin("Nostit puntteja ja sait yhden voimapisteen lisää!");
     }
     
     @Override

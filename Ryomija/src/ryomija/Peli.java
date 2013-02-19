@@ -28,7 +28,7 @@ public class Peli {
     private List<Hirvio> tuhottavat;
     
     public Peli() {
-        this.viestit = "Tervetuloa peliin! Yritä selvitä hengissä. ";
+        this.viestit = "Tervetuloa peliin! Yritä selvitä hengissä ulos. ";
         this.noppa = new Random();
         this.odotus = new Odotusaika();
         this.tuhottavat = new ArrayList<Hirvio>();
@@ -82,8 +82,6 @@ public class Peli {
         this.kartta.etsiRuutu(this.pelaaja.getX(), this.pelaaja.getY()).asetaOlento(this.pelaaja);
         this.hirviot = this.kartta.getHirviot();
         this.inventaario = new Inventaario();
-        this.inventaario.lisaaEsine(new Parannusjuoma(this));
-        this.inventaario.lisaaEsine(new Parannusjuoma(this));
         this.graafKayttis = new GraafinenKayttoliittyma(this.kartta, this);
     }
     
@@ -155,7 +153,7 @@ public class Peli {
     public String piirraPelitilanne() {
         String pelinakyma = "";
         pelinakyma += piirraKarttanakyma();
-        pelinakyma += piirraHUD() + "\n" + lisaaRivinvaihdot(this.viestit);
+        pelinakyma += piirraHUD() + lisaaRivinvaihdot(this.viestit);
         return pelinakyma;
     }
     
@@ -183,7 +181,7 @@ public class Peli {
      * Antaa tulosteen pelaajan statsien senhetkisestä tilasta.
      */
     public String piirraHUD() {
-        String tuloste = "HP: " + this.pelaaja.getKyvyt().getHP() + " Voima: " + this.pelaaja.getKyvyt().getVoima() + " Exp: " + this.pelaaja.getKokemus();
+        String tuloste = "HP: " + this.pelaaja.getKyvyt().getHP() + "/" + this.pelaaja.getKyvyt().getMaxHP() + " Voima: " + this.pelaaja.getKyvyt().getVoima();
         return tuloste;
     }
     
@@ -338,9 +336,8 @@ public class Peli {
             osuma(hyokkaaja, puolustaja);
         }
         else {
-            huti(puolustaja);
+            huti(hyokkaaja, puolustaja);
         }
-        System.out.println();
     }
     
     /**Osumassa vähennetaan kohteen HP:ta ja siirrytään eteenpäin.
@@ -352,7 +349,7 @@ public class Peli {
         Random vahinko = new Random();
         kohde.getKyvyt().muutaHP((vahinko.nextInt(hyokkaaja.getKyvyt().getVoima()) + 1)*-1);
         if (kohde.getKyvyt().getHP() > 0) {
-            eiTappavaOsuma(kohde);
+            eiTappavaOsuma(hyokkaaja, kohde);
         }
         else {
             tappo(kohde);
@@ -363,12 +360,14 @@ public class Peli {
      * 
      * @param kohde Olento, jota on lyöty
      */
-    public void eiTappavaOsuma(Olento kohde) {
+    public void eiTappavaOsuma(Olento hyokkaaja, Olento kohde) {
         if (kohde instanceof Hirvio) {
-                this.viestit += "Osuit! Vihulla " + kohde.getKyvyt().getHP() + " hiparia jaljella. ";
-            }
+            Hirvio hirvio = (Hirvio)kohde;
+            this.viestit += "Osuit! " + hirvio.getNimi() + " ottaa osumaa. ";
+        }
         else {
-                this.viestit += "Vihu osuu sinuun! Sinulla on " + kohde.getKyvyt().getHP() + " hiparia jaljella. ";
+            Hirvio hirvio = (Hirvio)hyokkaaja;
+            this.viestit += hirvio.getNimi() + " osuu sinuun! ";
         }
     }
     
@@ -376,9 +375,10 @@ public class Peli {
      * 
      * @param Kohde Olento, jota on yritetty lyödä.
      */
-    public void huti(Olento Kohde) {
+    public void huti(Olento hyokkaaja, Olento Kohde) {
         if (Kohde instanceof Pelaaja) {
-            this.viestit += "Vihollinen löi hudin! ";
+            Hirvio hirvio = (Hirvio)hyokkaaja;
+            this.viestit += hirvio.getNimi() + " löi hudin! ";
         }
         else {
             this.viestit += "Et osunut! ";
@@ -391,8 +391,8 @@ public class Peli {
      */
     public void tappo(Olento Kohde) {
         if (Kohde instanceof Hirvio) {
-            this.viestit += "Surmasit vihollisen!";
             Hirvio monseri = (Hirvio)Kohde;
+            this.viestit += monseri.getNimi() + " kuoli! ";
             this.kartta.etsiRuutu(monseri.getX(), monseri.getY()).asetaOlento(null);
             this.tuhottavat.add(monseri);
         }

@@ -76,8 +76,14 @@ public class Kartanrakentaja {
         if (merkki == '@') {
             ruutu.asetaOlento(new Pelaaja(x, y, '@', new Stats(10, 5)));
         }
+        else if (merkki == 'r') {
+            ruutu.asetaOlento(new Hirvio(x, y, 'r', new Stats(3, 2), "Rotta"));
+        }
         else if (merkki == 'o') {
-            ruutu.asetaOlento(new Hirvio(x, y, 'o', new Stats(5, 3)));
+            ruutu.asetaOlento(new Hirvio(x, y, 'o', new Stats(5, 3), "Örkki"));
+        }
+        else if (merkki == 'P') {
+            ruutu.asetaOlento(new Hirvio(x, y, 'P', new Stats(15, 5), "Tappajapeikko"));
         }
         else if (merkki == '!') {
             ruutu.asetaEsine(new Parannusjuoma(this.peli));
