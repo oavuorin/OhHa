@@ -1,0 +1,7 @@
+Testausdokumentointi
+
+Ylivoimaisesti suurin osa testauksesta tapahtui käsin. Kohtalaisen monet tapahtumat pelissä riippuvat satunnaismuuttujista (taistelu) tai tekoälyn toimista, joiden yksikkötestauksen huomasin kohtalaisen vaikeaksi. Etenkin Peli-luokassa on myös paljon metodeja, jotka eivät palauta mitään, mutta ovat tärkeitä pelin toiminnan kannalta. Matemaattisia arvoja muuttavat metodit ja luokat oli helppo testata yksikkötesteillä, joten ne hoidin sillä. Ikävä kyllä pelin suurempaa toimintaa oli vaikeampi testata näin.
+
+Käsin testaus tapahtui alkuun kokeilemalla hahmon liikuttelua ja komentamista. Kun tämä toimi, lisättiin tekoälyotuksia mukaan. Tekoälyn ja pelaajan liikuttelun toimittua siirryin karttageneraattorin toimivuuteen. Tarkistin, että se lisää oikeat elementit oikeille kohdille ja että elementit toimivat oikealla tavalla pelissä. Tarkistin myös, että karttageneraattori toimii, vaikka karttatiedostossa olisi virheellinen tiedosto (luonnollisestikaan tällöin kartta ei kuitenkaan näytä siltä miltä pitäisi).
+
+Lopuksi vuorossa oli inventaariosysteemin testaaminen, koska se oli lisäämistäni ominaisuuksista viimeinen. Inventaarioon jäi yksi bugi: jos pelaaja painaa inventaariossa mitä tahansa näppäintä, joka ei kuulu Nappaimistonkuuntelija-luokan kuuntelemiin näppäimiin, sulkeutuu inventaario ja pelaajan on painettava kerran jotakin nappia jotta peli jatkuu. Inventaarion sulkeutuminen on tarkoituksenmukaista, mutta ylimääräinen painallus ei.

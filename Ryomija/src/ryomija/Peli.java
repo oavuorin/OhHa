@@ -57,6 +57,10 @@ public class Peli {
         return this.pelitila;
     }
     
+    public String getViestit() {
+        return this.viestit;
+    }
+    
     public void setViestit(String muutos) {
         this.viestit = muutos;
     }
@@ -99,6 +103,7 @@ public class Peli {
      * 
      */
     public void testiPelinAlustus() {
+        this.inventaario = new Inventaario();
         this.kartta = new Kartta(10, 10);
         this.kartta.etsiRuutu(0, 0).muutaSeinaksi(true);
         this.pelaaja = new Pelaaja(0, 1, '@', new Stats(10, 4));

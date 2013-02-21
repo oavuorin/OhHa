@@ -5,3 +5,7 @@ Pelaaja voi pelissä liikutella pelaajahahmoaan, taistella hirviöitä vastaan j
 
 Karttaan ja toimintalogiikkaan liittyvien luokkien lisäksi pelissä on esineet-pakkaus, joka sisältää rajapinnan Esine sekä pelissä käytettävät esineet.
 
+Jatkosuunnitelmia ja aikataulun vuoksi pois jääneitä ominaisuuksia:
+-satunnaisgeneroituvat tasot
+-mahdollisuus pelata tasoja, jotka ovat suurempia kuin mitä ruudulle mahtuu (tulostetaan vain sen verran mitä mahtuu)
+-useampia tasoja kestävä peli

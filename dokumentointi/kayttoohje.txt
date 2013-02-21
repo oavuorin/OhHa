@@ -40,8 +40,7 @@ Y Mystinen amuletti, joka sinun on tarkoitus lˆyt‰‰ luolastosta ja laittaa kaula
 Voit k‰ytt‰‰ peliss‰ seuraavia n‰pp‰imi‰:
 
 Nuolin‰pp‰imet liikuttavat pelaajahahmoa n‰pp‰imen mukaiseen suuntaan.
-I Avaa n‰kym‰n pelaajan repusta.
+I Avaa n‰kym‰n pelaajan repusta. Reppun‰kym‰n voi sulkea painamalla mit‰ tahansa n‰pp‰int‰ (paitsi 1-9, joilla valitaan esineet).
 . Lepuuttaa pelaajahahmoa yhden pelivuoron. N. viiden vuoron odotus parantaa yhden HP:n.
 , Nostaa maassa olevan esineen ja lis‰‰ sen reppuusi, mik‰li se mahtuu.
-
 1-9 K‰ytet‰‰n vain reppun‰kym‰ss‰. Paina haluamasi esineen numeroa k‰ytt‰‰ksesi sen.
