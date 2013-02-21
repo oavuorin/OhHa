@@ -2,21 +2,21 @@ package esineet;
 
 import ryomija.Peli;
 
-public class Parannusjuoma implements Esine {
+public class Panssarilevy implements Esine{
     private char symboli;
     private String nimi;
     private Peli peli;
     
-    public Parannusjuoma(Peli peli) {
-        this.symboli = '!';
-        this.nimi = "Parannusjuoma";
+    public Panssarilevy(Peli peli) {
+        this.symboli = '=';
+        this.nimi = "Panssarilevy";
         this.peli = peli;
     }
     
     @Override
     public void kayta() {
-        this.peli.getPelaaja().getKyvyt().muutaHP(5);
-        this.peli.lisaaViesteihin("Joit parannusjuoman. ");
+        this.peli.lisaaViesteihin("Asetit panssarilevyn päällesi ja kestät nyt hieman enemmän kurmotusta.");
+        this.peli.getPelaaja().getKyvyt().muutaMaxHP(5);
     }
     
     @Override

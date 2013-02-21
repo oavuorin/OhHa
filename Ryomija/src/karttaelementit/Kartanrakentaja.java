@@ -85,11 +85,18 @@ public class Kartanrakentaja {
         else if (merkki == 'P') {
             ruutu.asetaOlento(new Hirvio(x, y, 'P', new Stats(15, 5), "Tappajapeikko"));
         }
+        else if (merkki == 'Y') {
+            ruutu.asetaEsine(new VoitonAmuletti(this.peli));
+        }
         else if (merkki == '!') {
             ruutu.asetaEsine(new Parannusjuoma(this.peli));
         }
         else if (merkki == 'I') {
             ruutu.asetaEsine(new Voimannostopuntti(this.peli));
+        }
+        
+        else if (merkki == '=') {
+            ruutu.asetaEsine(new Panssarilevy(this.peli));
         }
     }
 }

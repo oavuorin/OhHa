@@ -2,7 +2,6 @@ package ryomija;
 
 import karttaelementit.*;
 import kayttoliittyma.GraafinenKayttoliittyma;
-import esineet.*;
 import java.lang.Math;
 import java.util.Random;
 import java.util.List;
@@ -49,6 +48,10 @@ public class Peli {
     
     public Inventaario getInventaario() {
         return this.inventaario;
+    }
+    
+    public int getPelitila() {
+        return this.pelitila;
     }
     
     public void setViestit(String muutos) {
@@ -106,6 +109,9 @@ public class Peli {
         if (this.pelitila == 2) {
             return peliKierrosInventaariossa(komento);
         }
+        if (this.pelitila == 3) {
+            return peliKierrosVoittaneena();
+        }
         else {
             return peliKierrosKuolleena();
         }
@@ -142,6 +148,12 @@ public class Peli {
      */
     public String peliKierrosKuolleena() {
         this.viestit = "Kuolit haavoihisi ja hävisit pelin! Paina rastia lopettaaksesi";
+        String tuloste = piirraPelitilanne();
+        return tuloste;
+    }
+    
+    public String peliKierrosVoittaneena() {
+        this.viestit = "Voitit pelin, onneksi olkoon! Sinulla ei ole täällä enää mitään nähtävää.";
         String tuloste = piirraPelitilanne();
         return tuloste;
     }
@@ -422,6 +434,11 @@ public class Peli {
     public void havio() {
         this.viestit += "Kuolit haavoihisi ja hävisit pelin! :((((";
         this.pelitila = 0;
+    }
+    
+    public void voitto() {
+        this.viestit += "Voitit pelin!";
+        this.pelitila = 3;
     }
     
     /**Liikuttaa hirvio-olioita pelikentällä.

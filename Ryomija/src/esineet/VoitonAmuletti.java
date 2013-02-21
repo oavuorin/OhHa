@@ -2,21 +2,21 @@ package esineet;
 
 import ryomija.Peli;
 
-public class Parannusjuoma implements Esine {
+public class VoitonAmuletti implements Esine {
     private char symboli;
     private String nimi;
     private Peli peli;
     
-    public Parannusjuoma(Peli peli) {
-        this.symboli = '!';
-        this.nimi = "Parannusjuoma";
+    public VoitonAmuletti(Peli peli) {
+        this.symboli = 'Y';
+        this.nimi = "Mystinen amuletti";
         this.peli = peli;
     }
     
     @Override
     public void kayta() {
-        this.peli.getPelaaja().getKyvyt().muutaHP(5);
-        this.peli.lisaaViesteihin("Joit parannusjuoman. ");
+        this.peli.lisaaViesteihin("Laitoit Zkklunrmin pyhän amuletin kaulaasi, muutuit jumalaksi ja pääsit pois hirveästä luolastosta! ");
+        this.peli.voitto();
     }
     
     @Override

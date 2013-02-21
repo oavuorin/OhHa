@@ -48,7 +48,9 @@ public class Komennonkasittelija {
                 this.peli.getInventaario().kaytaEsine(kaytettava);
             }
         }
-        this.peli.setPelitila(1);
+        if (this.peli.getPelitila() != 3) {
+            this.peli.setPelitila(1);
+        }
     }
     
     public boolean onkoNumero(String komento) {
