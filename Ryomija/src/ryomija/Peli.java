@@ -298,6 +298,13 @@ public class Peli {
             this.kartta.etsiRuutu(uusiX, uusiY).asetaOlento(olento);
             this.kartta.etsiRuutu(olento.getX(), olento.getY()).asetaOlento(null);
             olento.liikuta(dX, dY);
+            tulostaMaassaOleva(uusiX, uusiY);
+        }
+    }
+    
+    public void tulostaMaassaOleva(int x, int y) {
+        if (this.kartta.etsiRuutu(x, y).getEsine() != null) {
+            lisaaViesteihin("Maassa on " + this.kartta.etsiRuutu(x, y).getEsine());
         }
     }
     

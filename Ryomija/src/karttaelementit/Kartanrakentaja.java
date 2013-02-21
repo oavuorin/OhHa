@@ -28,7 +28,7 @@ public class Kartanrakentaja {
             lisaaSeinatJaOlennot(kartta, tiedosto);
             return kartta;
         } catch (Exception e) {
-            System.out.println("Tiedoston lukeminen epäonnistui, haista vittu");
+            System.out.println("Tiedoston lukeminen epäonnistui. Tiedostoa tasot/taso.txt ei löydy");
             return null;
         }
     }
