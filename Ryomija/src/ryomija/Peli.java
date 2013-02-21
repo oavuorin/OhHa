@@ -276,6 +276,7 @@ public class Peli {
         if (this.odotus.odota()) {
             this.pelaaja.getKyvyt().muutaHP(1);
         }
+        lisaaViesteihin("Lepäsit hetken. ");
     }
     
     /**Metodi liikuttaa paratmetrin olentoa kartalla parametrien dX ja dY suuntaan ja hyökkää jos mahdollista.
