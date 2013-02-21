@@ -1,8 +1,32 @@
+###########-------############
+ryomija-paketti:
+
 Main:
 -initialisoi pelin
 
 Peli:
 -pyörittää pelin logiikkaa, vie Stringin pelitilanteesta käyttöliittymälle
+
+
+
+Stats:
+-Olennon numeeriset tiedot sisältävä luokka (tällä hetkellä sisältää olennon voima- ja hp-arvot)
+
+
+KomentoKasittelija:
+-Käsittelee saadut komennot ja pistää niiden mukaan Peli-luokan tekemään asioita
+
+###########-------############
+kayttoliittyma-paketti:
+
+GraafinenKayttoliittyma:
+-Sisältää graafisen käyttöliittymän
+
+Nappaimistonkuuntelija:
+-Ottaa vastaan näppäimistösyötteet ja pistää ne eteenpäin Peli-luokalle
+
+###########-------############
+karttaelementit-paketti:
 
 Kartta:
 -pitää sisällään listan ruuduista, ns. "pelilauta"
@@ -19,14 +43,23 @@ Pelaaja:
 Hirvio:
 -tietokoneen ohjastama olento
 
-Stats:
--Olennon numeeriset tiedot sisältävä luokka (tällä hetkellä sisältää olennon voima- ja hp-arvot)
+Kartanrakentaja:
+-kartan tiedoston pohjalta rakentava luokka
 
-GraafinenKayttoliittyma:
--Sisältää graafisen käyttöliittymän
+###########-------############
+esineet-paketti:
 
-Nappaimistonkuuntelija:
--Ottaa vastaan näppäimistösyötteet ja pistää ne eteenpäin Peli-luokalle
+Esine:
+-rajapinta, jolle kaikki pelissä käytettävät esineet pohjautuvat
 
-KomentoKasittelija:
--Käsittelee saadut komennot ja pistää niiden mukaan Peli-luokan tekemään asioita
+Panssarilevy:
+-esine, joka parantaa pelaajan maxhp-arvoa
+
+Parannusjuoma:
+-esine, joka parantaa pelaajan hp-arvoa
+
+Voimannostopuntti:
+-esine, joka parantaa pelaajan voima-arvoa
+
+VoitonAmuletti:
+-esine, jonka käytettyään pelaaja voittaa pelin

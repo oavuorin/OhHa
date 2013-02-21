@@ -2,6 +2,9 @@ package esineet;
 
 import ryomija.Peli;
 
+/**VoitonAmuletin käytettyään pelaaja voittaa pelin.
+ * 
+ */
 public class VoitonAmuletti implements Esine {
     private char symboli;
     private String nimi;
@@ -13,6 +16,9 @@ public class VoitonAmuletti implements Esine {
         this.peli = peli;
     }
     
+    /**Kun pelaaja käyttää VoitonAmuletin, lisätään sopiva viesti ja asetetaan peli voitetuksi.
+     * 
+     */
     @Override
     public void kayta() {
         this.peli.lisaaViesteihin("Laitoit Zkklunrmin pyhän amuletin kaulaasi, muutuit jumalaksi ja pääsit pois hirveästä luolastosta! ");

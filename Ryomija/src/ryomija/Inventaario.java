@@ -3,6 +3,10 @@ package ryomija;
 import esineet.Esine;
 import java.util.ArrayList;
 
+/**Pitää sisällään listan esineistä, jotka on pelaajan "repussa" ja joita pelaaja voi käyttää.
+ * 
+ * @author ghaassy
+ */
 public class Inventaario {
     private ArrayList<Esine> esineet;
     
@@ -14,6 +18,11 @@ public class Inventaario {
         return this.esineet;
     }
     
+    /**Mikäli pelaajan reppu ei ole täynnä, lisätään sinne uusi esine.
+     * 
+     * @param esine lisättävä esine
+     * @return true, mikäli esine mahtui reppuun
+     */
     public boolean lisaaEsine(Esine esine) {
         if (this.esineet.size() >= 9) {
             return false;
@@ -22,6 +31,10 @@ public class Inventaario {
         return true;
     }
     
+    /**Käyttää esineen inventaariosta.
+     * 
+     * @param jarjestysnro monesko esine listalla halutaan käyttää
+     */
     public void kaytaEsine(int jarjestysnro) {
         this.esineet.get(jarjestysnro - 1).kayta();
         this.esineet.remove(jarjestysnro - 1);

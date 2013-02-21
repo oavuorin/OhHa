@@ -37,6 +37,10 @@ public class Kartta {
         return this.korkeus;
     }
     
+    /**Palauttaa listan kaikista hirvioista kartassa.
+     * 
+     * @return List hirvioista
+     */
     public List getHirviot() {
         List hirviolista = new ArrayList<Hirvio>();
         

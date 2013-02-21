@@ -2,6 +2,10 @@ package esineet;
 
 import ryomija.Peli;
 
+/**Panssarilevy-esineellä voi kasvattaa pelaajan maksimi-HP:n arvoa.
+ * 
+ * @author ghaassy
+ */
 public class Panssarilevy implements Esine{
     private char symboli;
     private String nimi;
@@ -13,6 +17,9 @@ public class Panssarilevy implements Esine{
         this.peli = peli;
     }
     
+    /**Kun panssarilevy käytetään, se nostaa pelaajan maxHP:ta viidellä ja lisää asianmukaisen viestin.
+     * 
+     */
     @Override
     public void kayta() {
         this.peli.lisaaViesteihin("Asetit panssarilevyn päällesi ja kestät nyt hieman enemmän kurmotusta.");

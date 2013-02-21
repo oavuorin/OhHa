@@ -18,6 +18,9 @@ public class Peli {
     private Pelaaja pelaaja;
     private Random noppa;
     private Odotusaika odotus;
+    /**
+     * pelitila-muuttuja kertoo, missä tilassa peli on: 1 tarkoittaa normaalitilaa, 2 inventaariota, 3 voittanutta ja muut arvot hävinnyttä.
+     */
     private int pelitila;
     private String viestit;
     private Inventaario inventaario;
@@ -62,6 +65,10 @@ public class Peli {
         this.pelitila = tila;
     }
     
+    /**Lisää viestit-muuttujan perään halutun Stringin.
+     * 
+     * @param lisays lisättävä String
+     */
     public void lisaaViesteihin(String lisays) {
         this.viestit += lisays;
     }
@@ -104,7 +111,7 @@ public class Peli {
      */
     public String peliKierros(String komento) {
         if (this.pelitila == 1) { 
-            return peliKierrosElossa(komento);
+            return peliKierrosNormaali(komento);
         }
         if (this.pelitila == 2) {
             return peliKierrosInventaariossa(komento);
@@ -122,7 +129,7 @@ public class Peli {
      * @param komento pelaajan antama komento
      * @return Merkkijono pelitilanteesta
      */
-    public String peliKierrosElossa(String komento) {
+    public String peliKierrosNormaali(String komento) {
         komentoKasittelija.otaKomentoNormaalitilassa(komento);
         String tuloste = "";
         if (this.pelitila == 1) {
@@ -137,6 +144,11 @@ public class Peli {
         return tuloste;
     }
     
+    /**Mikäli peli on Inventaariotilassa (pelitila == 2), käytetään tätä metodia.
+     * 
+     * @param komento kierroksella asetettava komento
+     * @return Merkkijono pelitilanteesta
+     */
     public String peliKierrosInventaariossa(String komento) {
         this.komentoKasittelija.otaKomentoInventaariossa(komento);
         return piirraPelitilanne();
@@ -152,6 +164,10 @@ public class Peli {
         return tuloste;
     }
     
+    /**Jos pelaaja on voittanut pelin, käytetään tätä metodia.
+     * 
+     * @return Merkkijono pelitilanteesta
+     */
     public String peliKierrosVoittaneena() {
         this.viestit = "Voitit pelin, onneksi olkoon! Sinulla ei ole täällä enää mitään nähtävää.";
         String tuloste = piirraPelitilanne();
@@ -197,6 +213,10 @@ public class Peli {
         return tuloste;
     }
     
+    /**Palauttaa merkkijonon inventaariosta.
+     * 
+     * @return merkkijono inventaariosta
+     */
     public String piirraInventaario() {
         return this.inventaario.toString();
     }
@@ -303,19 +323,25 @@ public class Peli {
         }
     }
     
-    public void tulostaMaassaOleva(int x, int y) {
-        if (this.kartta.etsiRuutu(x, y).getEsine() != null) {
-            lisaaViesteihin("Maassa on " + this.kartta.etsiRuutu(x, y).getEsine());
-        }
-    }
     
-    /**Kuin edellinen, mutta pelaajan liikuttelua varten.
+    /**Metodi pelaajan liikuttelua varten.
      * 
      * @param dX
      * @param dY 
      */
     public void liikutaPelaajaa(int dX, int dY) {
         liikutaHahmoa(dX, dY, this.pelaaja);
+    }
+    
+    /**Lisää viesteihin merkkijonon esineestä, joka on pelaajan kanssa samassa ruudussa.
+     * 
+     * @param x ruudun x-arvo
+     * @param y ruudun y-arvo
+     */
+    public void tulostaMaassaOleva(int x, int y) {
+        if (this.kartta.etsiRuutu(x, y).getEsine() != null) {
+            lisaaViesteihin("Maassa on " + this.kartta.etsiRuutu(x, y).getEsine());
+        }
     }
     
     /**Tarkastaa, onko haluttu ruutu tyhjä.
@@ -444,6 +470,9 @@ public class Peli {
         this.pelitila = 0;
     }
     
+    /**Kun pelaaja voittaa pelin, lisätään sopiva viesti ja asetetaan pelitila voittaneeksi.
+     * 
+     */
     public void voitto() {
         this.viestit += "Voitit pelin!";
         this.pelitila = 3;

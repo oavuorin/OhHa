@@ -33,3 +33,15 @@ Graafisen käyttöliittymän säätämistä
 
 Ti 12.2:
 Graafisen käyttöliittymän säätämistä, dokumentoinnin laajentamista ja päivittämistä, luokkien nimien viilaamista, testien kirjoittamista, 
+
+Ke 13.2:
+Kartanrakentajan tekeminen
+
+To 14.2:
+Kartanrakentajan hiominen, toimintalogiikan hiominen
+
+Ma 25.2:
+Kenttäsuunnittelu, pelin laajentaminen, esineiden lisääminen
+
+To 28.2:
+Dokumentaation lisääminen, pelin voittaminen.

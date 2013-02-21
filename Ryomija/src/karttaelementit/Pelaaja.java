@@ -8,6 +8,10 @@ import ryomija.Stats;
  * @author Otto Vuorinen
  */
 public class Pelaaja extends Olento {
+    
+    /**Kokemus-muuttujan toiminnallisuus jäi lopulta pelissä toteuttamatta.
+     * 
+     */
     private int kokemus;
     
     public Pelaaja(int x, int y, char symboli) {

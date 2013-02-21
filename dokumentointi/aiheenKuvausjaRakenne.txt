@@ -1,8 +1,7 @@
 ﻿Aihe: Luolastoryömintä
-Aiheena kevyt roguelike-tyyppinen peli, jossa pelaajan on tarkoitus selviytyä ulos hirviöidentäyteisestä luolastosta. Peli on vuoropohjainen ja hirviöiden kanssa tappeleminen perustuu satunnaislukujen heittelyyn. "Pelilauta" koostuu ruuduista, joiden sisältönä on (alustavasti) joko pelaajahahmo, hirviö, seinä tai tyhjää.
+Aiheena kevyt roguelike-tyyppinen peli, jossa pelaajan on tarkoitus löytää mystinen amuletti hirviöidentäyteisestä luolastosta. Peli on vuoropohjainen ja hirviöiden kanssa tappeleminen perustuu satunnaislukujen heittelyyn. "Pelilauta" eli Kartta koostuu ruuduista, joiden sisältönä on joko pelaajahahmo, hirviö, seinä tai tyhjää. Lisäksi ruutu, jossa ei ole seinää voi sisältää esineen. Kartta ja sen elementit rakennetaan tasot/taso.txt-tiedoston pohjalta. 
 
-Alustavasti pelin toiminnallisuudeksi tulee pelaajahahmon liikuttelu ja hirviöihin hyökkääminen, minkä seurauksena tekoäly sitten tekee hirviöillä vastatoimia. Lisätoiminnallisuuksia voi miettiä myöhemmin.
+Pelaaja voi pelissä liikutella pelaajahahmoaan, taistella hirviöitä vastaan ja poimia ja käyttää esineitä. Pelin NappaimistonKuuntelija-luokka lähettää painetusta napista sopivan syötteen Peli-luokalle, joka pyörittää pelin logiikkaa. Pelitilanteen pohjalta syöte annetaan eteenpäin Komennonkasittelija-luokalle, joka päättää suoritettavan komennon syötteen perusteella. Mikäli peli on normaalitilassa, se liikuttaa nyt luolastossa olevia hirviöitä ja tuhoaa kuolleet hirviöt. Näin peli jatkuu siihen asti, kunnes pelaaja kuolee tai voittaa pelin.
 
-Peliä pyörittää Peli-luokka, jolta käyttöliittymä saa String-muotoisena kuvan pelitilanteesta. Pelitilanne tulostetaan käyttöliittymään.
-
+Karttaan ja toimintalogiikkaan liittyvien luokkien lisäksi pelissä on esineet-pakkaus, joka sisältää rajapinnan Esine sekä pelissä käytettävät esineet.
 

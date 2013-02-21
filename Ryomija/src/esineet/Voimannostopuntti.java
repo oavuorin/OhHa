@@ -2,6 +2,9 @@ package esineet;
 
 import ryomija.Peli;
 
+/**Voimannostopuntti kasvattaa pelaajan Voima-arvoa yhdellä.
+ * 
+ */
 public class Voimannostopuntti implements Esine {
     private char symboli;
     private String nimi;
@@ -13,6 +16,9 @@ public class Voimannostopuntti implements Esine {
         this.peli = peli;
     }
     
+    /**Käytettäessä voimannostopuntti kasvattaa pelaajan Voimaa yhdellä ja lisää asianmukaisen viestin.
+     * 
+     */
     @Override
     public void kayta() {
         this.peli.getPelaaja().getKyvyt().muutaVoima(1);

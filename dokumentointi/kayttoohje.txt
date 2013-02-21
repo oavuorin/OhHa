@@ -1,0 +1,47 @@
+Luolastoryömintä
+
+Sisällysluettelo:
+1. Kuvaus
+2. Merkistö
+3. Komennot
+
+1. Kuvaus
+Luolastoryömintä on kevyt roguelike-henkinen peli, jossa pelaajan on tarkoitus löytää synkästä luolastosta mystinen amuletti. Amuletin löydettyään pelaaja voittaa pelin, mutta luolastoa asuttavat lukuisat vaaralliset hirviöt, joita jotka uhkaavat pelaajan henkeä. Lisäksi luolasto on hyvin pimeä, eikä pelaaja näe siellä kovin kauas. Onneksi luolastosta voi kuitenkin löytää myös esineitä, joista on apua taistelussa hirviöitä vastaan.
+
+Peli kuvataan täysin merkkigrafiikalla. Luolaston elementeillä ja asukkailla on jokaisella omat merkkinsä, josta nämä tunnistaa. Tarkemmat kuvaukset joka merkille löytyy Merkistö-luvusta.
+
+Luolastoryömintä on vuoropohjainen peli. Ensin pelaaja antaa komentonsa, sitten kukin hirviö liikkuu. Inventaariokomennot eivät kuitenkaan kuluta pelaajan vuoroa. Peli kertoo ruudun alalaidassa tarkempia tietoja siitä, mitä kullakin vuorolla on tapahtunut.
+
+Pelaajalla on mukanaan reppu, johon saa mahtumaan korkeintaan yhdeksän luolastosta löytyvää esinettä. Jos reppu tulee täyteen, pelaajan täytyy käyttää yksi esine repusta ennen kuin voi lisätä sinne uuden.
+
+Taistelemisen, kävelemisen ja esineiden käyttämisen lisäksi pelaaja voi myös levähtää hetkeksi parantamaan haavojaan. Tämä on suositeltavaa taisteluiden välissä.
+
+Pelaajalla on kaksi ominaisuutta: HP ja Voima. HP kuvaa pelaajan kestokykyä, jos se menee nollaan, pelaaja kuolee eikä voi enää jatkaa peliä. Voima taas kuvastaa pelaajan lyöntivoimaa, mitä suurempi se on, sitä helpommin pelaaja osuu hirviöihin ja sitä hurjempia hänen lyöntinsä ovat.
+
+2. Merkistö
+
+Alla on luettelo siitä, mikä mikäkin pelissä näkyvä merkki tarkoittaa.
+
+. Tyhjä kohta luolastossa. Siihen voi kävellä.
+# Seinä. Siihen ei voi kävellä.
+
+@ Pelaajan ohjaama hahmo.
+r Rotta, vihainen mutta heikko.
+o Örkki, vahvempi kuin rotta ja yhtä vihainen.
+P Tappajapeikko, hurjan vahva ja vihainen.
+
+! Parannusjuoma, parantaa saman tien hieman pelaajan haavoja.
+= Panssarilevy, käytä sitä nostaaksesi kuntokykyäsi.
+I Voimannostopuntti, käytä sitä nostaaksesi voimaasi.
+Y Mystinen amuletti, joka sinun on tarkoitus löytää luolastosta ja laittaa kaulaasi voiton merkiksi.
+
+3. Komennot
+
+Voit käyttää pelissä seuraavia näppäimiä:
+
+Nuolinäppäimet liikuttavat pelaajahahmoa näppäimen mukaiseen suuntaan.
+I Avaa näkymän pelaajan repusta.
+. Lepuuttaa pelaajahahmoa yhden pelivuoron. N. viiden vuoron odotus parantaa yhden HP:n.
+, Nostaa maassa olevan esineen ja lisää sen reppuusi, mikäli se mahtuu.
+
+1-9 Käytetään vain reppunäkymässä. Paina haluamasi esineen numeroa käyttääksesi sen.

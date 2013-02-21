@@ -2,6 +2,9 @@ package esineet;
 
 import ryomija.Peli;
 
+/**Parannusjuoma kasvattaa pelaajan tämänhetkistä HP:ta.
+ * 
+ */
 public class Parannusjuoma implements Esine {
     private char symboli;
     private String nimi;
@@ -13,6 +16,9 @@ public class Parannusjuoma implements Esine {
         this.peli = peli;
     }
     
+    /**Kun Parannusjuoma käytetään, se kasvattaa pelaajan HP:ta viidellä.
+     * 
+     */
     @Override
     public void kayta() {
         this.peli.getPelaaja().getKyvyt().muutaHP(5);

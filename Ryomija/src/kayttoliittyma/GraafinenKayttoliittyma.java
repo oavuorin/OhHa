@@ -23,7 +23,7 @@ public class GraafinenKayttoliittyma implements Runnable {
     
     @Override
     public void run() {
-        frame = new JFrame("Tunkio");
+        frame = new JFrame("Luolastoryömintä");
         frame.setPreferredSize(new Dimension(640, 520));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         

@@ -18,6 +18,10 @@ public class Kartanrakentaja {
         this.peli = peli;
     }
     
+    /**rakennaKartta-metodilla avataan tiedosto jonka pohjalta kartta luodaan ja kutsutaan muut rakennusmetodit.
+     * 
+     * @return Valmis kartta, johon on lisätty Hirviot ja Esineet.
+     */
     public Kartta rakennaKartta() {
         File tiedosto = new File("tasot/taso.txt");
         
@@ -33,6 +37,12 @@ public class Kartanrakentaja {
         }
     }
     
+    /**Metodi lukee tiedostosta kartan leveyden.
+     * 
+     * @param tiedosto Karttatiedosto
+     * @return kartan leveys
+     * @throws Exception Heitetään, mikäli tiedostoa ei löydy
+     */
     public int lueKartanLeveys(File tiedosto) throws Exception {
         Scanner lukija = new Scanner(tiedosto);
         int leveys = lukija.nextLine().length();
@@ -40,6 +50,12 @@ public class Kartanrakentaja {
         return leveys;
     }
     
+    /**Metodi lukee tiedostosta kartan korkeuden.
+     * 
+     * @param tiedosto Karttatiedosto
+     * @return kartan korkeus
+     * @throws Exception Heitetään, mikäli tiedostoa ei löydy
+     */
     public int lueKartanKorkeus(File tiedosto) throws Exception {
         Scanner lukija = new Scanner(tiedosto);
         int korkeus = 0;
@@ -51,6 +67,12 @@ public class Kartanrakentaja {
         return korkeus;
     }
     
+    /**Metodi lukee karttatiedostoa merkki kerrallaan ja asettaa merkkien pohjalta ruutujen sisällön sopivaksi.
+     * 
+     * @param kartta kartta, johon muutokset päivitetään
+     * @param tiedosto tiedosto, jonka pohjalta karttaa muokataan
+     * @throws Exception heitetään, mikäli tiedostoa ei löydy
+     */
     public void lisaaSeinatJaOlennot(Kartta kartta, File tiedosto) throws Exception {
         Scanner lukija = new Scanner(tiedosto);
         
@@ -72,6 +94,13 @@ public class Kartanrakentaja {
         lukija.close();
     }
     
+    /**Tämä lisää merkin pohjalta ruutuun tietyn olennon tai esineen.
+     * 
+     * @param ruutu Ruutu, johon olento tai esine lisätään
+     * @param merkki char, jonka pohjalta asetettava olento/esine päätetään
+     * @param x ruudun x-arvo
+     * @param y ruudun y-arvo
+     */
     public void lisaaOlentoTaiEsineRuutuun(Ruutu ruutu, char merkki, int x, int y) {
         if (merkki == '@') {
             ruutu.asetaOlento(new Pelaaja(x, y, '@', new Stats(10, 5)));

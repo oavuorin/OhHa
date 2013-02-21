@@ -7,6 +7,9 @@ import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import ryomija.Peli;
 
+/**Luokka kuuntelee pelaajan näppäimistöä ja sen pohjalta antaa syötteet Peli-luokalle.
+ * 
+ */
 public class Nappaimistonkuuntelija implements KeyListener {
     
     private JTextArea piirtaja;
@@ -17,6 +20,10 @@ public class Nappaimistonkuuntelija implements KeyListener {
         this.peli = peli;
     }
     
+    /**keyPressed() huolehtii siitä, että nappia painettaessa sopiva syöte annetaan Peli-luokalle, jonka palauttama String tulostetaan ruudulle.
+     * 
+     * @param e näppäintapahtuma
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         this.piirtaja.setText(this.peli.piirraPelitilanne());
