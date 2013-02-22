@@ -1,5 +1,2 @@
-OhHa
-====
-SISISISIISSIISISISISISIS
-muokkuas
-5666
+Ohjelmoinnin harjoitustyö, kevät 2013
+Otto Vuorinen

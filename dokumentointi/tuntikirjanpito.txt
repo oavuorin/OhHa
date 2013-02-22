@@ -11,37 +11,40 @@ Ti 22.1.:
 17-19: Testien kirjoittamisen aloittaminen
 
 To 24.1.:
-13.30- : taistelumekaniikka, olentojen statsit
+13.30-15.30: taistelumekaniikka, olentojen statsit
 
 Ma 28.1.:
-Pelikierroksen ja liikuttelun edistämistä
+13-15: Pelikierroksen ja liikuttelun edistämistä
 
 Ti 29.1.:
-Testien kirjoittamista, pelikierroksen edistämistä
+15-18: Testien kirjoittamista, pelikierroksen edistämistä
 
 Ma 4.2.:
-Sovelluslogiikan edistämistä (taistelusysteemiä, näkökenttää)
+12-13: Sovelluslogiikan edistämistä (taistelusysteemiä, näkökenttää)
 
 Ti 5.2.:
-Javadocin aloittaminen, sekvenssikaavioiden piirtäminen, luokkine hiominen
+15-20: Javadocin aloittaminen, sekvenssikaavioiden piirtäminen, luokkine hiominen
 
 Ke 6.2.:
-Säätämistä kirjastojen kanssa, graafisen käyttöliittymän aloittaminen ja sen kanssa tappeleminen, lopulta siinä onnistuminen (toivon mukaan)
+(koko päivä:) Säätämistä kirjastojen kanssa, graafisen käyttöliittymän aloittaminen ja sen kanssa tappeleminen, lopulta siinä onnistuminen (toivon mukaan)
 
 To 7.2.:
-Graafisen käyttöliittymän säätämistä
+14-16: Graafisen käyttöliittymän säätämistä
 
 Ti 12.2:
-Graafisen käyttöliittymän säätämistä, dokumentoinnin laajentamista ja päivittämistä, luokkien nimien viilaamista, testien kirjoittamista, 
+15-20: Graafisen käyttöliittymän säätämistä, dokumentoinnin laajentamista ja päivittämistä, luokkien nimien viilaamista, testien kirjoittamista, 
 
 Ke 13.2:
-Kartanrakentajan tekeminen
+16-20: Kartanrakentajan tekeminen
 
 To 14.2:
-Kartanrakentajan hiominen, toimintalogiikan hiominen
+14-20: Kartanrakentajan hiominen, toimintalogiikan hiominen
 
 Ma 25.2:
-Kenttäsuunnittelu, pelin laajentaminen, esineiden lisääminen
+(kokopäivä:)Kenttäsuunnittelu, pelin laajentaminen, esineiden lisääminen
 
 To 28.2:
-Dokumentaation lisääminen, pelin voittaminen.
+14-16: Dokumentaation lisääminen, pelin voittaminen.
+
+Pe 29.2:
+Viime hetken viilailuja n. 3h
